@@ -13,6 +13,8 @@ import java.util.List;
  */
 public interface Extractor {
 
-  public List<String> extract(String text);
+  public List<String> extract(int id, int topN);
+
+  public List<String> extract(int id);
 
 }

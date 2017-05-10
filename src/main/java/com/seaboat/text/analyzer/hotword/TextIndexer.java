@@ -40,7 +40,9 @@ public class TextIndexer {
     Field field = new Field("content", text, type);
     doc.add(field);
     try {
-      return indexWriter.addDocument(doc);
+      long id = indexWriter.addDocument(doc);
+      indexWriter.commit();
+      return id - 1;
     } catch (IOException e) {
       logger.error("IOException when adding document. ", e);;
     }

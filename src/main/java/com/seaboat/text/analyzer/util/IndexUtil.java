@@ -13,7 +13,6 @@ import org.wltea.analyzer.lucene.IKAnalyzer;
 
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.Properties;
 
 /**
  * 
@@ -34,48 +33,24 @@ public class IndexUtil {
 
   private static Directory directory;
 
-  protected static Logger logger = Logger.getLogger(IndexUtil.class);
+  private static String path = "_indexdir";
 
-  static {
-    try {
-      Properties properties = new Properties();
-      properties.load(IndexUtil.class.getClassLoader().getResourceAsStream("lucence.properties"));
-      directory = FSDirectory.open(Paths.get("_indexdir"));
-      Runtime.getRuntime().addShutdownHook(new Thread() {
-        public void run() {
-          try {
-            if (null != indexWriter) {
-              indexWriter.close();
-            }
-            if (null != indexReader) {
-              indexReader.close();
-            }
-            if (null != directory) {
-              directory.close();
-            }
-          } catch (Exception e) {
-            throw new RuntimeException(e);
-          }
-        }
-      });
-    } catch (Exception e) {
-      logger.info("初始化错误:" + e.getMessage());
-    }
-  }
+  protected static Logger logger = Logger.getLogger(IndexUtil.class);
 
   public static IndexReader getIndexReader() throws IOException {
     if (null != indexReader) {
       return indexReader;
     } else {
-      Directory directory = FSDirectory.open(Paths.get("indexdir"));
+      Directory directory = FSDirectory.open(Paths.get(path));
       return DirectoryReader.open(directory);
     }
   }
 
-  public static IndexWriter getIndexWriter() throws IOException {
+  public static synchronized IndexWriter getIndexWriter() throws IOException {
     if (null != indexWriter) {
       return indexWriter;
     } else {
+      directory = FSDirectory.open(Paths.get(path));
       Analyzer analyzer = new IKAnalyzer(true);
       IndexWriterConfig config = new IndexWriterConfig(analyzer);
       config.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
