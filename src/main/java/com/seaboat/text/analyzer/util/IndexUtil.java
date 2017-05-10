@@ -53,7 +53,7 @@ public class IndexUtil {
       directory = FSDirectory.open(Paths.get(path));
       Analyzer analyzer = new IKAnalyzer(true);
       IndexWriterConfig config = new IndexWriterConfig(analyzer);
-      config.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
+      config.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
       indexWriter = new IndexWriter(directory, config);
       return indexWriter;
     }

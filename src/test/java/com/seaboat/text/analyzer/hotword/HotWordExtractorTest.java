@@ -3,6 +3,7 @@ package com.seaboat.text.analyzer.hotword;
 import java.util.List;
 
 import org.junit.Test;
+
 /**
  * 
  * @author seaboat
@@ -17,8 +18,8 @@ public class HotWordExtractorTest {
   @Test
   public void testExtract() {
     HotWordExtractor extractor = new HotWordExtractor();
-    List<String> list = extractor.extract(0,20);
-    if (list != null) for (String s : list)
-      System.out.println(s);
+    List<Result> list = extractor.extract(0, 20, false);
+    if (list != null) for (Result s : list)
+      System.out.println(s.getTerm() + " : " + s.getFrequency() + " : " + s.getScore());
   }
 }

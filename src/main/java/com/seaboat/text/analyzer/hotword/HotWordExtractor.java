@@ -10,12 +10,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.Terms;
 import org.apache.lucene.index.TermsEnum;
 import org.apache.lucene.util.BytesRef;
 
 import com.seaboat.text.analyzer.Extractor;
+import com.seaboat.text.analyzer.IDF;
 import com.seaboat.text.analyzer.util.IndexUtil;
 
 /**
@@ -28,38 +30,66 @@ import com.seaboat.text.analyzer.util.IndexUtil;
  * <p>A hotword extractor can extract some hot words in a text.</p>
  */
 public class HotWordExtractor implements Extractor {
+
   protected static Logger logger = Logger.getLogger(HotWordExtractor.class);
 
-  public List<String> extract(int id,int topN) {
-    List<String> list = new LinkedList<String>();
+  private IDF idf;
+
+  public HotWordExtractor() {
+    this(new LuceneIDF());
+  }
+
+  public HotWordExtractor(IDF idf) {
+    this.idf = idf;
+  }
+
+  public List<Result> extract(int id, int topN) {
+    return extract(id, topN, false);
+  }
+
+  @Override
+  public List<Result> extract(int id) {
+    return extract(id, 10);
+  }
+
+  @Override
+  public List<Result> extract(int id, int topN, boolean useScore) {
+    List<Result> list = new LinkedList<Result>();
     try {
       IndexReader reader = IndexUtil.getIndexReader();
       Terms terms = reader.getTermVector(id, "content");
       TermsEnum termsEnum = terms.iterator();
       BytesRef thisTerm = null;
-      Map<String, Integer> map = new HashMap<String, Integer>();
       while ((thisTerm = termsEnum.next()) != null) {
-        String termText = thisTerm.utf8ToString();
-        map.put(termText, (int) termsEnum.totalTermFreq());
+        String term = thisTerm.utf8ToString();
+        float idfn = idf.getIDF(term);
+        int a = (int) termsEnum.totalTermFreq();
+        long b = terms.size();
+        float tf = (float)a/b ;
+        float score = idfn * tf;
+        list.add(new Result(term, (int) termsEnum.totalTermFreq(), score));
       }
-      List<Map.Entry<String, Integer>> sortedMap = new ArrayList<Map.Entry<String, Integer>>(map.entrySet());
-      Collections.sort(sortedMap, new Comparator<Map.Entry<String, Integer>>() {
-          public int compare(Map.Entry<String, Integer> kv1, Map.Entry<String, Integer> kv2) {
-              return (kv2.getValue() - kv1.getValue());
+      if (useScore) {
+        Collections.sort(list, new Comparator<Result>() {
+          @Override
+          public int compare(Result o1, Result o2) {
+            int flag = (o2.getScore() - o1.getScore()) > 0 ? 1 : 0;
+            return flag;
           }
-      });
-      for (int i = 0; i < topN; i++) 
-        list.add(sortedMap.get(i).getKey() );
-      return list ;
+        });
+      } else {
+        Collections.sort(list, new Comparator<Result>() {
+          @Override
+          public int compare(Result o1, Result o2) {
+            return (o2.getFrequency() - o1.getFrequency());
+          }
+        });
+      }
+      return list.subList(0, topN);
     } catch (IOException e) {
       logger.error("IOException when getting reader. ", e);
       e.printStackTrace();
     }
     return null;
-  }
-
-  @Override
-  public List<String> extract(int id) {
-    return extract(id, 10);
   }
 }
