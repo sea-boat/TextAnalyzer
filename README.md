@@ -13,6 +13,14 @@ optimize hot-word extract by tf-idf.
 
 ***just simple like this***
 
+1. indexing a document and get a docId.
+
+```
+long docId = TextIndexer.index(text);
+```
+
+2. extracting by docId.
+
 ```
  HotWordExtractor extractor = new HotWordExtractor();
  List<Result> list = extractor.extract(0, 20, false);
@@ -23,24 +31,14 @@ optimize hot-word extract by tf-idf.
 a result contains term,frequency and score.
 
 ```
-一带一路 : 15 : 0.10496296
-法律服务 : 12 : 0.08397037
-北京 : 9 : 0.062977776
-涉外 : 8 : 0.055980247
-联合 : 8 : 0.055980247
-法律 : 7 : 0.048982713
-合作 : 6 : 0.041985184
-大学 : 6 : 0.041985184
-法治 : 5 : 0.034987655
-相关 : 5 : 0.034987655
-论坛 : 5 : 0.034987655
-中国 : 4 : 0.027990123
-研究 : 4 : 0.027990123
-企业 : 3 : 0.020992592
-千龙网 : 3 : 0.020992592
-实践 : 3 : 0.020992592
-法 : 3 : 0.020992592
-研究中心 : 3 : 0.020992592
-首都 : 3 : 0.020992592
-5月 : 2 : 0.013995062
+失业证 : 1 : 0.31436604
+户口 : 1 : 0.30099702
+单位 : 1 : 0.29152703
+提取 : 1 : 0.27927202
+领取 : 1 : 0.27581802
+职工 : 1 : 0.27381304
+劳动 : 1 : 0.27370203
+关系 : 1 : 0.27080503
+本市 : 1 : 0.27080503
+终止 : 1 : 0.27080503
 ```

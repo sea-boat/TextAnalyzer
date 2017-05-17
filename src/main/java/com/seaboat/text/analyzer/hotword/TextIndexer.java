@@ -7,6 +7,7 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.FieldType;
 import org.apache.lucene.index.IndexOptions;
+import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 
 import com.seaboat.text.analyzer.util.IndexUtil;
@@ -24,10 +25,13 @@ public class TextIndexer {
 
   protected static Logger logger = Logger.getLogger(TextIndexer.class);
 
-  public static long index(String text) {
+  // only allow single thread
+  public static synchronized long index(String text) {
     IndexWriter indexWriter = null;
+    IndexReader reader = null;
     try {
       indexWriter = IndexUtil.getIndexWriter();
+      reader = IndexUtil.getIndexReader();
     } catch (IOException e) {
       logger.error("IOException when getting index writer. ", e);
     }
@@ -40,9 +44,9 @@ public class TextIndexer {
     Field field = new Field("content", text, type);
     doc.add(field);
     try {
-      long id = indexWriter.addDocument(doc);
+      indexWriter.addDocument(doc);
       indexWriter.commit();
-      return id - 1;
+      return reader.maxDoc();
     } catch (IOException e) {
       logger.error("IOException when adding document. ", e);;
     }

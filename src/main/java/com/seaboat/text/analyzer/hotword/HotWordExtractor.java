@@ -1,16 +1,12 @@
 package com.seaboat.text.analyzer.hotword;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.Terms;
 import org.apache.lucene.index.TermsEnum;
@@ -18,6 +14,7 @@ import org.apache.lucene.util.BytesRef;
 
 import com.seaboat.text.analyzer.Extractor;
 import com.seaboat.text.analyzer.IDF;
+import com.seaboat.text.analyzer.ScoreFactor;
 import com.seaboat.text.analyzer.util.IndexUtil;
 
 /**
@@ -35,12 +32,15 @@ public class HotWordExtractor implements Extractor {
 
   private IDF idf;
 
+  private ScoreFactor factor;
+
   public HotWordExtractor() {
-    this(new LuceneIDF());
+    this(new LuceneIDF(), new WordPopularityScore());
   }
 
-  public HotWordExtractor(IDF idf) {
+  public HotWordExtractor(IDF idf, ScoreFactor factor) {
     this.idf = idf;
+    this.factor = factor;
   }
 
   public List<Result> extract(int id, int topN) {
@@ -63,18 +63,20 @@ public class HotWordExtractor implements Extractor {
       while ((thisTerm = termsEnum.next()) != null) {
         String term = thisTerm.utf8ToString();
         float idfn = idf.getIDF(term);
+        float scoreFactor = factor.getScoreFactor(term);
         int a = (int) termsEnum.totalTermFreq();
         long b = terms.size();
-        float tf = (float)a/b ;
-        float score = idfn * tf;
+        float tf = (float) a / b;
+        float score = idfn * tf + scoreFactor;
         list.add(new Result(term, (int) termsEnum.totalTermFreq(), score));
       }
       if (useScore) {
         Collections.sort(list, new Comparator<Result>() {
           @Override
           public int compare(Result o1, Result o2) {
-            int flag = (o2.getScore() - o1.getScore()) > 0 ? 1 : 0;
-            return flag;
+            Float f2 = Float.parseFloat(String.valueOf(o2.getScore()));
+            Float f1 = Float.parseFloat(String.valueOf(o1.getScore()));
+            return f2.compareTo(f1);
           }
         });
       } else {
@@ -85,7 +87,8 @@ public class HotWordExtractor implements Extractor {
           }
         });
       }
-      return list.subList(0, topN);
+      if (list.size() > topN) return list.subList(0, topN);
+      return list;
     } catch (IOException e) {
       logger.error("IOException when getting reader. ", e);
       e.printStackTrace();

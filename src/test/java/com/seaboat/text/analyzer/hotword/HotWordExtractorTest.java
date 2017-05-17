@@ -18,7 +18,7 @@ public class HotWordExtractorTest {
   @Test
   public void testExtract() {
     HotWordExtractor extractor = new HotWordExtractor();
-    List<Result> list = extractor.extract(0, 20, false);
+    List<Result> list = extractor.extract(13, 20, true);
     if (list != null) for (Result s : list)
       System.out.println(s.getTerm() + " : " + s.getFrequency() + " : " + s.getScore());
   }
