@@ -16,6 +16,7 @@ import com.seaboat.text.analyzer.Extractor;
 import com.seaboat.text.analyzer.IDF;
 import com.seaboat.text.analyzer.ScoreFactor;
 import com.seaboat.text.analyzer.util.IndexUtil;
+import com.seaboat.text.analyzer.util.SynonymUtil;
 
 /**
  * 
@@ -70,6 +71,21 @@ public class HotWordExtractor implements Extractor {
         float score = idfn * tf + scoreFactor;
         list.add(new Result(term, (int) termsEnum.totalTermFreq(), score));
       }
+      //match the synonym
+      List<Result> toRemove = new LinkedList<Result>();
+      for(Result result : list){
+        String synonym;
+        if((synonym = SynonymUtil.getSynonym(result.getTerm())) != null)
+          for(Result r : list){
+            if(r.getTerm().equals(synonym)){
+              r.setFrequency(r.getFrequency() + result.getFrequency());
+              r.setScore(r.getScore() + result.getScore());
+              toRemove.add(result);
+            }
+          }
+      }
+      for(Result r : toRemove)
+        list.remove(r);
       if (useScore) {
         Collections.sort(list, new Comparator<Result>() {
           @Override

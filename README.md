@@ -1,12 +1,24 @@
 # TextAnalyzer
+
 a text analizer that can analyze text. so far, it can extract hot words in a text segment by using tf-idf algorithm.
+
+# features
+
+***extracting hot words from a text.***
+1. to gather statistics via frequence.
+2. to gather statistics via by tf-idf algorithm
+3. to gather statistics via a score factor additionally.
+
+***synonym can be recognized***
 
 # Dependence
 
 https://github.com/sea-boat/IKAnalyzer-Mirror.git
 
 # TODO
-optimize hot-word extract by tf-idf.
+* term relationship.
+* text classification.
+* emotion analization.
 
 
 # how to use 
