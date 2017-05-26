@@ -12,6 +12,7 @@ a text analizer that can analyze text. so far, it can extract hot words in a tex
 ***synonym can be recognized***
 
 ***SVM Classificator***
+
 this analyzer supports to classify text by svm. it involves vectoring the text. we can train the samples and then make a classification by the model.
 
 # Dependence
