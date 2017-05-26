@@ -8,22 +8,21 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.store.RAMDirectory;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
 import java.io.IOException;
-import java.nio.file.Paths;
 
 /**
  * 
  * @author seaboat
- * @date 2017-05-09
+ * @date 2017-05-24
  * @version 1.0
  * <pre><b>email: </b>849586227@qq.com</pre>
  * <pre><b>blog: </b>http://blog.csdn.net/wangyangzhizhou</pre>
- * <p>a basic index util.</p>
+ * <p>memory index util.</p>
  */
-public class IndexUtil {
+public class MemoryIndexUtil {
 
   private static IndexReader indexReader;
 
@@ -31,11 +30,9 @@ public class IndexUtil {
 
   private static IndexSearcher indexSearcher;
 
-  private static Directory directory;
+  private static Directory directory = new RAMDirectory();;
 
-  private static String path = "_indexdir";
-
-  protected static Logger logger = Logger.getLogger(IndexUtil.class);
+  protected static Logger logger = Logger.getLogger(MemoryIndexUtil.class);
 
   public static IndexReader getIndexReader() throws IOException {
     if (null != indexReader) {
@@ -52,7 +49,6 @@ public class IndexUtil {
     if (null != indexWriter) {
       return indexWriter;
     } else {
-      directory = FSDirectory.open(Paths.get(path));
       Analyzer analyzer = new IKAnalyzer(true);
       IndexWriterConfig config = new IndexWriterConfig(analyzer);
       config.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
@@ -66,7 +62,7 @@ public class IndexUtil {
     if (null != indexSearcher) {
       return indexSearcher;
     } else {
-      synchronized (IndexUtil.class) {
+      synchronized (MemoryIndexUtil.class) {
         indexSearcher = new IndexSearcher(getIndexReader());
       }
       return indexSearcher;
