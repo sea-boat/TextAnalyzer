@@ -31,18 +31,24 @@ public class IndexUtil {
 
   private static IndexSearcher indexSearcher;
 
-  private static Directory directory;
-
   private static String path = "_indexdir";
 
+  private static Directory directory;
+
   protected static Logger logger = Logger.getLogger(IndexUtil.class);
+
+  static {
+    try {
+      directory = FSDirectory.open(Paths.get(path));
+    } catch (IOException e) {
+      logger.error(e);
+    }
+  }
 
   public static IndexReader getIndexReader() throws IOException {
     if (null != indexReader) {
       return indexReader;
     } else {
-      if(directory == null)
-        throw new IOException("directory is null.");
       indexReader = DirectoryReader.open(directory);
       return indexReader;
     }
@@ -52,7 +58,6 @@ public class IndexUtil {
     if (null != indexWriter) {
       return indexWriter;
     } else {
-      directory = FSDirectory.open(Paths.get(path));
       Analyzer analyzer = new IKAnalyzer(true);
       IndexWriterConfig config = new IndexWriterConfig(analyzer);
       config.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
