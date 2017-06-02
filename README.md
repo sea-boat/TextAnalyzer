@@ -1,6 +1,8 @@
 # TextAnalyzer
 
-a text analizer that can analyze text. so far, it can extract hot words in a text segment by using tf-idf algorithm.
+a text analizer that can analyze text. so far, it can extract hot words in a text segment by using tf-idf algorithm,at the same time using a score factor to optimize the final score.
+
+also it provides machine learning to make a classification.
 
 # features
 
@@ -15,19 +17,23 @@ a text analizer that can analyze text. so far, it can extract hot words in a tex
 
 this analyzer supports to classify text by svm. it involves vectoring the text. we can train the samples and then make a classification by the model.
 
+for convenience,the model,tfidf and vector will be stored.
+
 # Dependence
 
 https://github.com/sea-boat/IKAnalyzer-Mirror.git
 
 
 # TODO
-* term relationship.
+* other ml algorithms.
 * emotion analization.
 
 
 # how to use 
 
 ***just simple like this***
+
+## extracting hot words
 
 1. indexing a document and get a docId.
 
@@ -47,14 +53,30 @@ long docId = TextIndexer.index(text);
 a result contains term,frequency and score.
 
 ```
- ß“µ÷§ : 1 : 0.31436604
-ªßø⁄ : 1 : 0.30099702
-µ•Œª : 1 : 0.29152703
-Ã·»° : 1 : 0.27927202
-¡Ï»° : 1 : 0.27581802
-÷∞π§ : 1 : 0.27381304
-¿Õ∂Ø : 1 : 0.27370203
-πÿœµ : 1 : 0.27080503
-±æ – : 1 : 0.27080503
-÷’÷π : 1 : 0.27080503
+Â§±‰∏öËØÅ : 1 : 0.31436604
+Êà∑Âè£ : 1 : 0.30099702
+Âçï‰Ωç : 1 : 0.29152703
+ÊèêÂèñ : 1 : 0.27927202
+È¢ÜÂèñ : 1 : 0.27581802
+ËÅåÂ∑• : 1 : 0.27381304
+Âä≥Âä® : 1 : 0.27370203
+ÂÖ≥Á≥ª : 1 : 0.27080503
+Êú¨Â∏Ç : 1 : 0.27080503
+ÁªàÊ≠¢ : 1 : 0.27080503
+```
+
+## SVM classificator
+
+1. training the samples.
+
+```
+SVMTrainer trainer = new SVMTrainer();
+trainer.train();
+```
+
+2. predicting text classification.
+
+```
+double[] data = trainer.getWordVector(text);
+trainer.predict(data);
 ```

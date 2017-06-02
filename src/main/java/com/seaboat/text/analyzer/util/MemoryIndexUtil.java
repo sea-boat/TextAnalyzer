@@ -2,6 +2,8 @@ package com.seaboat.text.analyzer.util;
 
 import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.TokenStream;
+import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
@@ -12,6 +14,9 @@ import org.apache.lucene.store.RAMDirectory;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
 import java.io.IOException;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -38,8 +43,7 @@ public class MemoryIndexUtil {
     if (null != indexReader) {
       return indexReader;
     } else {
-      if(directory == null)
-        throw new IOException("directory is null.");
+      if (directory == null) throw new IOException("directory is null.");
       indexReader = DirectoryReader.open(directory);
       return indexReader;
     }
@@ -69,4 +73,23 @@ public class MemoryIndexUtil {
     }
   }
 
+  public static List<String> getToken(String text) {
+    List<String> list = new ArrayList<String>();
+    Analyzer anal = new IKAnalyzer(true);
+    StringReader reader = new StringReader(text);
+    TokenStream ts = anal.tokenStream("", reader);
+    CharTermAttribute term = ts.getAttribute(CharTermAttribute.class);
+    try {
+      ts.reset();
+      while (ts.incrementToken()) {
+        list.add(term.toString());
+      }
+      reader.close();
+      anal.close();
+      ts.close();
+    } catch (IOException e) {
+      logger.error(e);
+    }
+    return list;
+  }
 }

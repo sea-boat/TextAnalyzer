@@ -1,4 +1,4 @@
-package com.seaboat.text.training.util;
+package com.seaboat.text.analyzer.util;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -20,13 +20,14 @@ public class DataReader {
 
   public static List<String> readContent(String file) {
     List<String> lines = new ArrayList<String>();
-    BufferedReader  bufferedReader;
+    BufferedReader bufferedReader;
     try {
-      bufferedReader = new BufferedReader (new FileReader(file));
+      bufferedReader = new BufferedReader(new FileReader(file));
       String line;
       while ((line = bufferedReader.readLine()) != null) {
         lines.add(line);
       }
+      bufferedReader.close();
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     } catch (IOException e) {
