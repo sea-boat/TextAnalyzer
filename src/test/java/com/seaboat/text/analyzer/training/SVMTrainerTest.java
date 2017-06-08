@@ -1,8 +1,5 @@
-package com.seaboat.text.training;
+package com.seaboat.text.analyzer.training;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.util.List;
 
 import org.junit.Test;

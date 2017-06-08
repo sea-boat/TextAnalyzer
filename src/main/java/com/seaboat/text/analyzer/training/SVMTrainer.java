@@ -85,7 +85,6 @@ public class SVMTrainer {
         logger.error("IOException when adding document. ", e);
       }
     }
-    System.out.println(labels);
     // get a whole term vector
     IndexReader reader = null;
     Set<String> vector = null;
@@ -106,7 +105,6 @@ public class SVMTrainer {
     }
 
     List<String> vectorList = new ArrayList<String>(vector);
-    System.out.println(vectorList);
     Map<String, Double> tfidf = new HashMap<String, Double>();
     // calculating the vector of samples
     double[][] samples = new double[labels.size()][vectorList.size()];
@@ -139,13 +137,6 @@ public class SVMTrainer {
       } catch (IOException e) {
         logger.error("IOException happens ", e);
       }
-    }
-    for (int i = 0; i < samples.length; i++) {
-      System.out.print("[");
-      for (int j = 0; j < samples[i].length; j++)
-        System.out.print(samples[i][j] + ",");
-      System.out.print("]");
-      System.out.println();
     }
     Integer tmpInteger[] = new Integer[labels.size()];
     int labelInt[] = new int[labels.size()];

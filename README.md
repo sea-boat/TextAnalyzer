@@ -17,6 +17,10 @@ also it provides machine learning to make a classification.
 
 this analyzer supports to classify text by svm. it involves vectoring the text. we can train the samples and then make a classification by the model.
 
+***kmeans clustering***
+
+this analyzer supports to clustering text by kmeans.
+
 for convenience,the model,tfidf and vector will be stored.
 
 # Dependence
@@ -79,4 +83,11 @@ trainer.train();
 ```
 double[] data = trainer.getWordVector(text);
 trainer.predict(data);
+```
+
+## kmeans clustering
+
+```
+List<String> list = DataReader.readContent(KMeansCluster.DATA_FILE);
+int[] labels = new KMeansCluster().learn(list);
 ```
