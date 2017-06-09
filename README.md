@@ -19,10 +19,13 @@ this analyzer supports to classify text by svm. it involves vectoring the text. 
 
 for convenience,the model,tfidf and vector will be stored.
 
-***kmeans clustering***
+***kmeans clustering && xmeans clustering***
 
-this analyzer supports to clustering text by kmeans.
+this analyzer supports to clustering text by kmeans and xmeans.
 
+***vsm clustering***
+
+this analyzer supports to clustering text by vsm.
 
 # Dependence
 
@@ -91,4 +94,11 @@ trainer.predict(data);
 ```
 List<String> list = DataReader.readContent(KMeansCluster.DATA_FILE);
 int[] labels = new KMeansCluster().learn(list);
+```
+
+## vsm clustering
+
+```
+List<String> list = DataReader.readContent(VSMCluster.DATA_FILE);
+List<String> labels = new VSMCluster().learn(list);
 ```
