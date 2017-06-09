@@ -29,6 +29,7 @@ import com.seaboat.text.analyzer.hotword.LuceneMemoryIDF;
 import com.seaboat.text.analyzer.util.DataReader;
 import com.seaboat.text.analyzer.util.MemoryIndexUtil;
 import com.seaboat.text.analyzer.util.ObjectUtil;
+import com.seaboat.text.analyzer.util.StringUtil;
 
 /**
  * 
@@ -97,7 +98,10 @@ public class SVMTrainer {
         BytesRef thisTerm = null;
         while ((thisTerm = termsEnum.next()) != null) {
           String term = thisTerm.utf8ToString();
-          vector.add(term);
+          if ((term.length() > 1) && (!StringUtil.isNumericAndLetter(term))
+              && (!StringUtil.isMobile(term)) && (!StringUtil.isPhone(term))
+              && (!StringUtil.isContainNumber(term)) && (!StringUtil.isDate(term)))
+            vector.add(term);
         }
       }
     } catch (IOException e) {
