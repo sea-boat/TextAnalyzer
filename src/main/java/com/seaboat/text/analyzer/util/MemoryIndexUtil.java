@@ -11,6 +11,8 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
+import org.wltea.analyzer.core.IKSegmenter;
+import org.wltea.analyzer.core.Lexeme;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
 import java.io.IOException;
@@ -75,21 +77,18 @@ public class MemoryIndexUtil {
 
   public static List<String> getToken(String text) {
     List<String> list = new ArrayList<String>();
-    Analyzer anal = new IKAnalyzer(true);
     StringReader reader = new StringReader(text);
-    TokenStream ts = anal.tokenStream("", reader);
-    CharTermAttribute term = ts.getAttribute(CharTermAttribute.class);
+    IKSegmenter ik = new IKSegmenter(reader,false);
+    Lexeme lexeme = null;
     try {
-      ts.reset();
-      while (ts.incrementToken()) {
-        list.add(term.toString());
-      }
-      reader.close();
-      anal.close();
-      ts.close();
+        while((lexeme = ik.next())!=null)
+          list.add(lexeme.getLexemeText());
     } catch (IOException e) {
-      logger.error(e);
+        e.printStackTrace();
+    } finally{
+        reader.close();
     }
     return list;
   }
+ 
 }

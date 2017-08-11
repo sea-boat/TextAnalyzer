@@ -16,13 +16,17 @@ import org.apache.lucene.document.FieldType;
 import org.apache.lucene.index.IndexOptions;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.Term;
 import org.apache.lucene.index.Terms;
 import org.apache.lucene.index.TermsEnum;
+import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.search.TermQuery;
+import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.util.BytesRef;
 
 import smile.classification.SVM;
 import smile.math.kernel.GaussianKernel;
-import smile.math.kernel.LinearKernel;
 
 import com.seaboat.text.analyzer.IDF;
 import com.seaboat.text.analyzer.hotword.LuceneMemoryIDF;
@@ -67,6 +71,8 @@ public class SVMTrainer {
     } catch (IOException e) {
       logger.error("IOException when getting index writer. ", e);
     }
+    int DOCID = 0;
+    int delta = 10000;
     for (String line : list) {
       labels.add(Integer.parseInt(line.split("\\|")[0]));
       String text = line.split("\\|")[1];
@@ -77,7 +83,9 @@ public class SVMTrainer {
       type.setTokenized(true);
       Document doc = new Document();
       Field field = new Field("content", text, type);
+      Field docIdField = new Field("docId", String.valueOf(DOCID+delta), type);
       doc.add(field);
+      doc.add(docIdField);
       try {
         docNum++;
         indexWriter.addDocument(doc);
@@ -85,6 +93,7 @@ public class SVMTrainer {
       } catch (IOException e) {
         logger.error("IOException when adding document. ", e);
       }
+      DOCID++;
     }
     // get a whole term vector
     IndexReader reader = null;
@@ -92,15 +101,20 @@ public class SVMTrainer {
     try {
       reader = MemoryIndexUtil.getIndexReader();
       vector = new HashSet<String>();
-      for (int docId = 0; docId < docNum; docId++) {
-        Terms terms = reader.getTermVector(docId, "content");
+      for (int docId = 0; docId < reader.maxDoc(); docId++) {
+        Term t = new Term("docId", String.valueOf(docId+delta));
+        Query query = new TermQuery(t);
+        IndexSearcher searcher = new IndexSearcher(reader);
+        TopDocs topDocs = searcher.search(query, 1);
+        Terms terms = reader.getTermVector(topDocs.scoreDocs[0].doc, "content");
         TermsEnum termsEnum = terms.iterator();
         BytesRef thisTerm = null;
         while ((thisTerm = termsEnum.next()) != null) {
           String term = thisTerm.utf8ToString();
           if ((term.length() > 1) && (!StringUtil.isNumericAndLetter(term))
               && (!StringUtil.isMobile(term)) && (!StringUtil.isPhone(term))
-              && (!StringUtil.isContainNumber(term)) && (!StringUtil.isDate(term)))
+              && (!StringUtil.isContainNumber(term)) && (!StringUtil.isDate(term))
+              && (!StringUtil.isFilterWord(term))) 
             vector.add(term);
         }
       }
@@ -114,10 +128,15 @@ public class SVMTrainer {
     double[][] samples = new double[labels.size()][vectorList.size()];
     for (int i = 0; i < docNum; i++) {
       try {
+        Term t = new Term("docId", String.valueOf(i+delta));
+        Query query = new TermQuery(t);
+        IndexSearcher searcher = new IndexSearcher(reader);
+        TopDocs topDocs;
+          topDocs = searcher.search(query, 1);
         int j = 0;
         for (int m = 0; m < vectorList.size(); m++) {
           String vTerm = vectorList.get(m);
-          Terms terms = reader.getTermVector(i, "content");
+          Terms terms = reader.getTermVector(topDocs.scoreDocs[0].doc, "content");
           TermsEnum termsEnum = terms.iterator();
           BytesRef thisTerm = null;
           boolean isContain = false;
@@ -150,7 +169,7 @@ public class SVMTrainer {
     }
 
     SVM<double[]> svm =
-        new SVM<double[]>(new GaussianKernel(1.0), 1.0, 12, SVM.Multiclass.ONE_VS_ALL);
+        new SVM<double[]>(new GaussianKernel(8.0), 500.0, 13, SVM.Multiclass.ONE_VS_ALL);
     svm.learn(samples, labelInt);
     svm.finish();
 
