@@ -72,11 +72,19 @@ public class StringUtil {
     return false;
   }
 
-  public static String[] FILTER_WORDS = {"建议", "咨询", "咨询人","投诉人","投诉","热线","回复","答复"};
+  public static String[] FILTER_WORDS = {"建议", "咨询", "咨询人", "投诉人", "投诉", "热线", "回复", "答复"};
+
   public static boolean isFilterWord(String term) {
-    for(String s : FILTER_WORDS)
-      if(s.equals(term))
-        return true;
+    for (String s : FILTER_WORDS)
+      if (s.equals(term)) return true;
     return false;
+  }
+
+  public static boolean hasDigit(String content) {
+    boolean flag = false;
+    Pattern p = Pattern.compile(".*\\d+.*");
+    Matcher m = p.matcher(content);
+    if (m.matches()) flag = true;
+    return flag;
   }
 }

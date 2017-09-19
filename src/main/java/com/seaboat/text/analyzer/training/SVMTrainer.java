@@ -54,15 +54,14 @@ public class SVMTrainer {
 
   public static String TEST_FILE = "data/test.txt";
 
-  public static String MODEL_FILE = "model";
+  public static String MODEL_FILE = "model/svm-model";
 
-  public static String VECTOR_FILE = "vector";
+  public static String VECTOR_FILE = "model/vector";
 
-  public static String TFIDF_FILE = "tfidf";
+  public static String TFIDF_FILE = "model/tfidf";
 
   public void train() {
     List<Integer> labels = new LinkedList<Integer>();
-    // List<Integer> docIds = new LinkedList<Integer>();
     int docNum = 0;
     List<String> list = DataReader.readContent(TRAIN_FILE);
     IndexWriter indexWriter = null;

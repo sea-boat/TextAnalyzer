@@ -4,12 +4,17 @@ a text analizer that can analyze text. so far, it can extract hot words in a tex
 
 also it provides machine learning to make a classification.
 
+***2017-09-19:***
+TextAnalyzer supports to extract address.
+
 # features
 
 ***extracting hot words from a text.***
 1. to gather statistics via frequence.
 2. to gather statistics via by tf-idf algorithm
 3. to gather statistics via a score factor additionally.
+
+***extracting address from a text.***
 
 ***synonym can be recognized***
 
@@ -71,6 +76,14 @@ a result contains term,frequency and score.
 关系 : 1 : 0.27080503
 本市 : 1 : 0.27080503
 终止 : 1 : 0.27080503
+```
+
+## extracting address
+
+```
+String str ="xxxx";
+AddressExtractor extractor = new AddressExtractor();
+List<String> list = extractor.extract(str);
 ```
 
 ## SVM classificator

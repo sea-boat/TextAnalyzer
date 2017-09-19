@@ -2,8 +2,6 @@ package com.seaboat.text.analyzer;
 
 import java.util.List;
 
-import com.seaboat.text.analyzer.hotword.Result;
-
 /**
  * 
  * @author seaboat
@@ -15,10 +13,6 @@ import com.seaboat.text.analyzer.hotword.Result;
  */
 public interface Extractor {
 
-  public List<Result> extract(int id, int topN,boolean useScore);
-
-  public List<Result> extract(int id, int topN);
-  
-  public List<Result> extract(int id);
+  public List<String> extract(String text);
 
 }

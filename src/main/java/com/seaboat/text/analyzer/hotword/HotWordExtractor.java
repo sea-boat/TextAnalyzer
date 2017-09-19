@@ -12,8 +12,8 @@ import org.apache.lucene.index.Terms;
 import org.apache.lucene.index.TermsEnum;
 import org.apache.lucene.util.BytesRef;
 
-import com.seaboat.text.analyzer.Extractor;
 import com.seaboat.text.analyzer.IDF;
+import com.seaboat.text.analyzer.IHotWordExtractor;
 import com.seaboat.text.analyzer.ScoreFactor;
 import com.seaboat.text.analyzer.util.IndexUtil;
 import com.seaboat.text.analyzer.util.StringUtil;
@@ -28,7 +28,7 @@ import com.seaboat.text.analyzer.util.SynonymUtil;
  * <pre><b>blog: </b>http://blog.csdn.net/wangyangzhizhou</pre>
  * <p>A hotword extractor can extract some hot words in a text.</p>
  */
-public class HotWordExtractor implements Extractor {
+public class HotWordExtractor implements IHotWordExtractor {
 
   protected static Logger logger = Logger.getLogger(HotWordExtractor.class);
 
@@ -113,6 +113,12 @@ public class HotWordExtractor implements Extractor {
       logger.error("IOException when getting reader. ", e);
       e.printStackTrace();
     }
+    return null;
+  }
+
+  @Override
+  public List<String> extract(String text) {
+    // TODO Auto-generated method stub
     return null;
   }
 }
