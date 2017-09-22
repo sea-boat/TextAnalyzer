@@ -1,11 +1,31 @@
 # TextAnalyzer
 
-a text analizer that can analyze text. so far, it can extract hot words in a text segment by using tf-idf algorithm,at the same time using a score factor to optimize the final score.
+A text analizer that can analyze text.
 
-also it provides machine learning to make a classification.
+So far, it can extract hot words in a text segment by using tf-idf algorithm, at the same time using a score factor to optimize the final score.
+
+It provides machine learning to make a classification.
+
+Part of speech tagging is also be supported.
+
+
+### Change Log:
+
+***2017-05-09:***
+TextAnalyzer supports to extract hotwords.
+
+***2017-05-24:***
+TextAnalyzer supports SVMTrainer.
+
+***2017-06-09:***
+TextAnalyzer supports Clusterring(kmeans\xmeans\vsm).
 
 ***2017-09-19:***
 TextAnalyzer supports to extract address.
+
+***2017-09-22:***
+TextAnalyzer supports part of speech tagging.
+
 
 # features
 
@@ -20,17 +40,21 @@ TextAnalyzer supports to extract address.
 
 ***SVM Classificator***
 
-this analyzer supports to classify text by svm. it involves vectoring the text. we can train the samples and then make a classification by the model.
+This analyzer supports to classify text by svm. it involves vectoring the text. We can train the samples and then make a classification by the model.
 
-for convenience,the model,tfidf and vector will be stored.
+For convenience,the model,tfidf and vector will be stored.
 
 ***kmeans clustering && xmeans clustering***
 
-this analyzer supports to clustering text by kmeans and xmeans.
+This analyzer supports to clustering text by kmeans and xmeans.
 
 ***vsm clustering***
 
-this analyzer supports to clustering text by vsm.
+This analyzer supports to clustering text by vsm.
+
+***part of speech tagging***
+It's implemented by HMM model and decoder by viterbi algorithm.
+
 
 # Dependence
 
@@ -42,7 +66,7 @@ https://github.com/sea-boat/IKAnalyzer-Mirror.git
 * emotion analization.
 
 
-# how to use 
+# how to use
 
 ***just simple like this***
 
@@ -114,4 +138,12 @@ int[] labels = new KMeansCluster().learn(list);
 ```
 List<String> list = DataReader.readContent(VSMCluster.DATA_FILE);
 List<String> labels = new VSMCluster().learn(list);
+```
+
+## part of speech tagging
+```
+HMMModel model = new HMMModel();
+model.train();
+ViterbiDecoder decoder = new ViterbiDecoder(model);
+decoder.decode(words);
 ```
