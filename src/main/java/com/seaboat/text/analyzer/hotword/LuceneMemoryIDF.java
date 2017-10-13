@@ -23,8 +23,8 @@ public class LuceneMemoryIDF implements IDF {
   public float getIDF(String term) {
     try {
       IndexReader reader = MemoryIndexUtil.getIndexReader();
-      float a = reader.numDocs()+1;
-      float b = reader.docFreq(new Term(term))+1;
+      float a = reader.numDocs() + 1;
+      float b = reader.docFreq(new Term("content", term)) + 1;
       float idf = (float) Math.log(a / b);
       return idf;
     } catch (IOException e) {
