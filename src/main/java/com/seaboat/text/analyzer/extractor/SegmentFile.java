@@ -32,7 +32,7 @@ public class SegmentFile {
         segmented += word + "/";
       }
       segmented = segmented.substring(0, segmented.length() - 1);
-      segmented = "###"+segmented+"### ###";
+      segmented = segmented+"###";
       segTexts.add(segmented);
     }
     DataWriter.writeContent(segFILE, segTexts);

@@ -8,23 +8,28 @@ It provides machine learning to make a classification.
 
 Part of speech tagging is also be supported.
 
+A custom named entity is supported by using MITIE. 
+
 
 ### Change Log:
 
-***2017-05-09:***
-TextAnalyzer supports to extract hotwords.
+***2017-11-01:***
+TextAnalyzer supports custom named entity.
 
-***2017-05-24:***
-TextAnalyzer supports SVMTrainer.
-
-***2017-06-09:***
-TextAnalyzer supports Clusterring(kmeans\xmeans\vsm).
+***2017-09-22:***
+TextAnalyzer supports part of speech tagging.
 
 ***2017-09-19:***
 TextAnalyzer supports to extract address.
 
-***2017-09-22:***
-TextAnalyzer supports part of speech tagging.
+***2017-06-09:***
+TextAnalyzer supports Clusterring(kmeans\xmeans\vsm).
+
+***2017-05-24:***
+TextAnalyzer supports SVMTrainer.
+
+***2017-05-09:***
+TextAnalyzer supports to extract hotwords.
 
 
 # features
@@ -146,4 +151,74 @@ HMMModel model = new HMMModel();
 model.train();
 ViterbiDecoder decoder = new ViterbiDecoder(model);
 decoder.decode(words);
+```
+
+## define your own named entity
+
+MITIE is an information extractor library comes up with MIT NLP term , which github is https://github.com/mit-nlp/MITIE .
+
+***train total\_word\_feature\_extractor***
+
+Prepare your word set, you can put them into a txt file in the directory of 'data'.
+
+And then do things below:
+
+```
+git clone https://github.com/mit-nlp/MITIE.git
+cd tools
+cd wordrep
+mkdir build
+cd build
+cmake ..
+cmake --build . --config Release
+wordrep -e data
+```
+
+Finally you get the total\_word\_feature\_extractor model.
+
+
+***train ner\_model***
+
+We can use Java\C++\Python to train the ner model, anyway we must use the total\_word\_feature\_extractor model to train it.
+
+if Java,
+
+```
+NerTrainer nerTrainer = new NerTrainer("model/mitie_model/total_word_feature_extractor.dat");
+```
+
+if C++,
+
+```
+ner_trainer trainer("model/mitie_model/total_word_feature_extractor.dat");
+```
+
+if Python,
+
+```
+trainer = ner_trainer("model/mitie_model/total_word_feature_extractor.dat")
+```
+
+
+***build shared library***
+
+Do commands below:
+
+```
+cd mitielib
+D:\MITIE\mitielib>mkdir build
+D:\MITIE\mitielib>cd build
+D:\MITIE\mitielib\build>cmake ..
+D:\MITIE\mitielib\build>cmake --build . --config Release --target install
+```
+
+Then we get these below:
+
+```
+-- Install configuration: "Release"
+-- Installing: D:/MITIE/mitielib/java/../javamitie.dll
+-- Installing: D:/MITIE/mitielib/java/../javamitie.jar
+-- Up-to-date: D:/MITIE/mitielib/java/../msvcp140.dll
+-- Up-to-date: D:/MITIE/mitielib/java/../vcruntime140.dll
+-- Up-to-date: D:/MITIE/mitielib/java/../concrt140.dll
 ```
