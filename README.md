@@ -13,6 +13,9 @@ A custom named entity is supported by using MITIE.
 
 ### Change Log:
 
+***2017-12-03:***
+TextAnalyzer supports google word2vec.
+
 ***2017-11-01:***
 TextAnalyzer supports custom named entity.
 
@@ -60,10 +63,6 @@ This analyzer supports to clustering text by vsm.
 ***part of speech tagging***
 It's implemented by HMM model and decoder by viterbi algorithm.
 
-
-# Dependence
-
-https://github.com/sea-boat/IKAnalyzer-Mirror.git
 
 
 # TODO
@@ -187,6 +186,7 @@ if Java,
 NerTrainer nerTrainer = new NerTrainer("model/mitie_model/total_word_feature_extractor.dat");
 ```
 
+
 if C++,
 
 ```
@@ -221,4 +221,17 @@ Then we get these below:
 -- Up-to-date: D:/MITIE/mitielib/java/../msvcp140.dll
 -- Up-to-date: D:/MITIE/mitielib/java/../vcruntime140.dll
 -- Up-to-date: D:/MITIE/mitielib/java/../concrt140.dll
+```
+
+
+## word2vec
+
+```
+Word2Vec vec = new Word2Vec();
+try {
+  vec.loadGoogleModel("d:/Google_word2vec_zhwiki1710_300d.bin");
+} catch (IOException e) {
+  e.printStackTrace();
+}
+System.out.println("狗|猫: " + vec.wordSimilarity("狗", "猫"));
 ```

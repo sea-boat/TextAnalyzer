@@ -11,7 +11,6 @@ import edu.mit.ll.mitie.NamedEntityExtractor;
 import edu.mit.ll.mitie.NerTrainer;
 import edu.mit.ll.mitie.NerTrainingInstance;
 import edu.mit.ll.mitie.StringVector;
-import edu.mit.ll.mitie.global;
 
 /**
  * 
@@ -86,17 +85,6 @@ public class MitieEntityExtractor implements Extractor {
     }
 
     return null;
-  }
-
-  public static void main(String[] args) {
-    MitieEntityExtractor ee = new MitieEntityExtractor();
-    ee.train(null);
-    List<String> texts = DataReader.readContent("data/mitie_test.txt");
-    for (String text : texts) {
-      List<String> li = ee.predict(text);
-      // for (String s : li)
-      // System.out.println(s);
-    }
   }
 
 }
