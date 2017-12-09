@@ -47,6 +47,11 @@ public class IndexUtil {
 
   public static IndexReader getIndexReader() throws IOException {
     if (null != indexReader) {
+      IndexReader tr = DirectoryReader.openIfChanged((DirectoryReader) indexReader);
+      if (tr != null) {
+        indexReader.close();
+        indexReader = tr;
+      }
       return indexReader;
     } else {
       indexReader = DirectoryReader.open(directory);
