@@ -1,7 +1,10 @@
 package com.seaboat.text.analyzer.hotword;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Properties;
 
@@ -24,12 +27,17 @@ public class WordPopularityScore implements ScoreFactor {
   static {
     InputStreamReader in;
     try {
-      in = new InputStreamReader(Object.class.getResourceAsStream("/word-popularity.properties"), "UTF-8");
+      InputStream is = WordPopularityScore.class.getResourceAsStream("/word-popularity.properties");
+      in = new InputStreamReader(is, "UTF-8");
       prop.load(in);
-    } catch (FileNotFoundException e) {
-      logger.error("File not found", e);
-    } catch (IOException e) {
-      logger.error("IOException", e);
+    } catch (Exception e) {
+      try {
+        InputStream is = new FileInputStream("word-popularity.properties");
+        in = new InputStreamReader(is, "UTF-8");
+        prop.load(in);
+      } catch (Exception e1) {
+        logger.equals(e1);
+      }
     }
   }
 
