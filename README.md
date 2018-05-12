@@ -13,6 +13,9 @@ A custom named entity is supported by using MITIE.
 
 ### Change Log:
 
+***2018-05-12:***
+TextAnalyzer supports the segment based on dictionary.
+
 ***2017-12-03:***
 TextAnalyzer supports google word2vec.
 
@@ -234,4 +237,11 @@ try {
   e.printStackTrace();
 }
 System.out.println("狗|猫: " + vec.wordSimilarity("狗", "猫"));
+```
+
+
+## segment
+```
+DictSegment segment = new DictSegment();
+System.out.println(segment.seg("我是中国人"));
 ```
