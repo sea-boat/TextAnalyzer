@@ -230,12 +230,7 @@ Then we get these below:
 ## word2vec
 
 ```
-Word2Vec vec = new Word2Vec();
-try {
-  vec.loadGoogleModel("d:/Google_word2vec_zhwiki1710_300d.bin");
-} catch (IOException e) {
-  e.printStackTrace();
-}
+Word2Vec vec = Word2Vec.getInstance();
 System.out.println("狗|猫: " + vec.wordSimilarity("狗", "猫"));
 ```
 

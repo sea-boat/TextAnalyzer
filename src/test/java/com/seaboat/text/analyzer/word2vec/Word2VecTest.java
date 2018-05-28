@@ -1,6 +1,5 @@
 package com.seaboat.text.analyzer.word2vec;
 
-import java.io.IOException;
 
 import org.junit.Test;
 
@@ -17,13 +16,9 @@ public class Word2VecTest {
 
   @Test
   public void test() {
-    Word2Vec vec = new Word2Vec();
-    try {
-      vec.loadGoogleModel("d:/Google_word2vec_zhwiki1710_300d.bin");
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    Word2Vec vec = Word2Vec.getInstance();
     System.out.println("狗|猫: " + vec.wordSimilarity("狗", "猫"));
+    System.out.println("电脑|计算机: " + vec.wordSimilarity("电脑", "计算机"));
   }
 }
 
