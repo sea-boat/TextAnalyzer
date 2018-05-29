@@ -29,12 +29,13 @@ public class Word2Vec {
 	private int size;
 	private int topNSize = 40;
 	private static Word2Vec instance = null;
+	private String path="D:/Google_word2vec_zhwiki1710_300d.bin";
 
 	private Word2Vec() {
 	}
 	private void init() {
 		try {
-			instance.loadGoogleModel("D:\\自动备份盘\\公开数据集\\中文语料库/Google_word2vec_zhwiki1710_300d.bin");
+			instance.loadGoogleModel(path);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

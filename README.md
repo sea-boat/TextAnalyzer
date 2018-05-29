@@ -13,6 +13,9 @@ A custom named entity is supported by using MITIE.
 
 ### Change Log:
 
+***2018-05-29:***
+TextAnalyzer supports calculating edit distance on char level or word level.
+
 ***2018-05-12:***
 TextAnalyzer supports the segment based on dictionary.
 
@@ -38,7 +41,7 @@ TextAnalyzer supports SVMTrainer.
 TextAnalyzer supports to extract hotwords.
 
 
-# features
+# Features
 
 ***extracting hot words from a text.***
 1. to gather statistics via frequence.
@@ -66,6 +69,14 @@ This analyzer supports to clustering text by vsm.
 ***part of speech tagging***
 It's implemented by HMM model and decoder by viterbi algorithm.
 
+***google word2vec model***
+This analyzer supports to use word2vec model.
+
+***chinese word segment***
+This analyzer supports to do chinese word segment.
+
+***edit distance***
+This analyzer supports calculating edit distance on char level or word level.
 
 
 # TODO
@@ -73,11 +84,11 @@ It's implemented by HMM model and decoder by viterbi algorithm.
 * emotion analization.
 
 
-# how to use
+# How To Use
 
 ***just simple like this***
 
-## extracting hot words
+## Extracting Hot Words
 
 1. indexing a document and get a docId.
 
@@ -109,7 +120,7 @@ a result contains term,frequency and score.
 终止 : 1 : 0.27080503
 ```
 
-## extracting address
+## Extracting Address
 
 ```
 String str ="xxxx";
@@ -117,7 +128,7 @@ AddressExtractor extractor = new AddressExtractor();
 List<String> list = extractor.extract(str);
 ```
 
-## SVM classificator
+## SVM Classificator
 
 1. training the samples.
 
@@ -133,21 +144,21 @@ double[] data = trainer.getWordVector(text);
 trainer.predict(data);
 ```
 
-## kmeans clustering && xmeans clustering
+## Kmeans Clustering && Xmeans Clustering
 
 ```
 List<String> list = DataReader.readContent(KMeansCluster.DATA_FILE);
 int[] labels = new KMeansCluster().learn(list);
 ```
 
-## vsm clustering
+## VSM Clustering
 
 ```
 List<String> list = DataReader.readContent(VSMCluster.DATA_FILE);
 List<String> labels = new VSMCluster().learn(list);
 ```
 
-## part of speech tagging
+## Part Of Speech Tagging
 ```
 HMMModel model = new HMMModel();
 model.train();
@@ -155,7 +166,7 @@ ViterbiDecoder decoder = new ViterbiDecoder(model);
 decoder.decode(words);
 ```
 
-## define your own named entity
+## Define Your Own Named Entity
 
 MITIE is an information extractor library comes up with MIT NLP term , which github is https://github.com/mit-nlp/MITIE .
 
@@ -227,7 +238,7 @@ Then we get these below:
 ```
 
 
-## word2vec
+## Word2vec
 
 ```
 Word2Vec vec = Word2Vec.getInstance();
@@ -235,8 +246,34 @@ System.out.println("狗|猫: " + vec.wordSimilarity("狗", "猫"));
 ```
 
 
-## segment
+## Segment
 ```
 DictSegment segment = new DictSegment();
 System.out.println(segment.seg("我是中国人"));
+
 ```
+
+## Edit Distance
+char level,
+
+```
+CharEditDistance cdd = new CharEditDistance();
+cdd.getEditDistance("what", "where");
+cdd.getEditDistance("我们是中国人", "他们是日本人吖，四贵子");
+cdd.getEditDistance("是我", "我是");
+```
+
+word level,
+
+```
+List list1 = new ArrayList<String>();
+list1.add(new EditBlock("计算机",""));
+list1.add(new EditBlock("多少",""));
+list1.add(new EditBlock("钱",""));
+List list2 = new ArrayList<String>();
+list2.add(new EditBlock("电脑",""));
+list2.add(new EditBlock("多少",""));
+list2.add(new EditBlock("钱",""));
+ed.getEditDistance(list1, list2);
+```
+

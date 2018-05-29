@@ -1,5 +1,7 @@
 package com.seaboat.text.analyzer.distance;
 
+import java.util.List;
+
 /**
  * 
  * @author seaboat
@@ -11,25 +13,34 @@ package com.seaboat.text.analyzer.distance;
  */
 public class StandardEditDistance {
 
-	public static int getEditDistance(String s, String t) {
-		int d[][];
+	public static double getEditDistance(List<EditBlock> list1, List<EditBlock> list2) {
+		if (list1 == null || list2 == null)
+			throw new RuntimeException("list1 or list2 is null");
+		double d[][];
 		int n;
 		int m;
 		int i;
 		int j;
-		char s_i;
-		char t_j;
-		int cost;
+		EditBlock s_i;
+		EditBlock t_j;
 
-		n = s.length();
-		m = t.length();
+		n = list1.size();
+		m = list2.size();
 		if (n == 0) {
-			return m;
+			double distance = 0.0;
+			for (int k = 0; k < m; k++) {
+				distance += list2.get(k).getInsertionCost();
+			}
+			return distance;
 		}
 		if (m == 0) {
-			return n;
+			double distance = 0.0;
+			for (int k = 0; k < n; k++) {
+				distance += list1.get(k).getDeletionCost();
+			}
+			return distance;
 		}
-		d = new int[n + 1][m + 1];
+		d = new double[n + 1][m + 1];
 		for (i = 0; i <= n; i++) {
 			d[i][0] = i;
 		}
@@ -37,10 +48,10 @@ public class StandardEditDistance {
 			d[0][j] = j;
 		}
 		for (i = 1; i <= n; i++) {
-			s_i = s.charAt(i - 1);
+			s_i = list1.get(i - 1);
 			for (j = 1; j <= m; j++) {
-				t_j = t.charAt(j - 1);
-				cost = (s_i == t_j) ? 0 : 1;
+				t_j = list2.get(j - 1);
+				double cost = s_i.getSubstitutionCost(t_j);
 				d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1);
 				d[i][j] = Math.min(d[i][j], d[i - 1][j - 1] + cost);
 			}
