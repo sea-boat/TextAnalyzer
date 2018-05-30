@@ -7,7 +7,7 @@ package com.seaboat.text.analyzer.distance;
  * @version 1.0
  * <pre><b>email: </b>849586227@qq.com</pre>
  * <pre><b>blog: </b>http://blog.csdn.net/wangyangzhizhou</pre>
- * <p>the implement of standard edit distance. the cost is simply 0 or 1.</p>
+ * <p>the implement of char level edit distance. the cost is simply 0 or 1.</p>
  */
 public class CharEditDistance {
 

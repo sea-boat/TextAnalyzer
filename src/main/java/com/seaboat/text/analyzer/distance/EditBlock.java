@@ -2,6 +2,15 @@ package com.seaboat.text.analyzer.distance;
 
 import com.seaboat.text.analyzer.word2vec.Word2Vec;
 
+/**
+ * 
+ * @author seaboat
+ * @date 2018-05-28
+ * @version 1.0
+ * <pre><b>email: </b>849586227@qq.com</pre>
+ * <pre><b>blog: </b>http://blog.csdn.net/wangyangzhizhou</pre>
+ * <p>edit unit.</p>
+ */
 public class EditBlock {
 
 	private String word;

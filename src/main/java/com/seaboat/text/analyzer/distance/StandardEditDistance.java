@@ -9,7 +9,7 @@ import java.util.List;
  * @version 1.0
  * <pre><b>email: </b>849586227@qq.com</pre>
  * <pre><b>blog: </b>http://blog.csdn.net/wangyangzhizhou</pre>
- * <p>the implement of standard edit distance. the cost is simply 0 or 1.</p>
+ * <p>the implement of standard edit distance. the cost is dependence by similariy.</p>
  */
 public class StandardEditDistance {
 

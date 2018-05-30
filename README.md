@@ -13,6 +13,9 @@ A custom named entity is supported by using MITIE.
 
 ### Change Log:
 
+***2018-05-30:***
+TextAnalyzer supports calculating similarity between two sentences.
+
 ***2018-05-29:***
 TextAnalyzer supports calculating edit distance on char level or word level.
 
@@ -77,6 +80,9 @@ This analyzer supports to do chinese word segment.
 
 ***edit distance***
 This analyzer supports calculating edit distance on char level or word level.
+
+***sentence similarity***
+This analyzer supports calculating similarity between two sentences.
 
 
 # TODO
@@ -278,3 +284,14 @@ list2.add(new EditBlock("钱",""));
 ed.getEditDistance(list1, list2);
 ```
 
+## Sentence Similarity
+
+```
+String s1 = "我们是中国人";
+String s2 = "他们是日本人，四贵子";
+SentenceSimilarity ss = new SentenceSimilarity();
+System.out.println(ss.getSimilarity(s1, s2));
+s1 = "我们是中国人";
+s2 = "我们是中国人";
+System.out.println(ss.getSimilarity(s1, s2));
+```
