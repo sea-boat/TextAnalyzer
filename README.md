@@ -1,14 +1,9 @@
 # TextAnalyzer
 
-A text analizer that can analyze text.
+A text analyzer which is based on machine learning that can analyze text.
 
-So far, it can extract hot words in a text segment by using tf-idf algorithm, at the same time using a score factor to optimize the final score.
-
-It provides machine learning to make a classification.
-
-Part of speech tagging is also be supported.
-
-A custom named entity is supported by using MITIE. 
+So far, it supports hot word extracting, text classification, part of speech tagging， 
+named entity recognition, chinese word segment, extracting address, synonym, text clustering, word2vec model， edit distance， chinese word segment， sentence similarity. 
 
 # Features
 
@@ -36,24 +31,24 @@ This analyzer supports to clustering text by kmeans and xmeans.
 This analyzer supports to clustering text by vsm.
 
 ***part of speech tagging***
+
 It's implemented by HMM model and decoder by viterbi algorithm.
 
 ***google word2vec model***
+
 This analyzer supports to use word2vec model.
 
 ***chinese word segment***
+
 This analyzer supports to do chinese word segment.
 
 ***edit distance***
+
 This analyzer supports calculating edit distance on char level or word level.
 
 ***sentence similarity***
+
 This analyzer supports calculating similarity between two sentences.
-
-
-# TODO
-* other ml algorithms.
-* emotion analization.
 
 
 # How To Use
