@@ -2,8 +2,7 @@
 
 A text analyzer which is based on machine learning that can analyze text.
 
-So far, it supports hot word extracting, text classification, part of speech tagging， 
-named entity recognition, chinese word segment, extracting address, synonym, text clustering, word2vec model， edit distance， chinese word segment， sentence similarity. 
+So far, it supports hot word extracting, text classification, part of speech tagging, named entity recognition, chinese word segment, extracting address, synonym, text clustering, word2vec model, edit distance, chinese word segment, sentence similarity. 
 
 # Features
 
