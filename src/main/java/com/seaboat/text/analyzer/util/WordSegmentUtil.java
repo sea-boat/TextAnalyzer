@@ -1,12 +1,10 @@
 package com.seaboat.text.analyzer.util;
 
-import java.io.IOException;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.wltea.analyzer.core.IKSegmenter;
-import org.wltea.analyzer.core.Lexeme;
+import org.ansj.domain.Term;
+import org.ansj.splitWord.analysis.ToAnalysis;
 
 /**
  * 
@@ -19,19 +17,13 @@ import org.wltea.analyzer.core.Lexeme;
  */
 public class WordSegmentUtil {
 
-  public static List<String> seg(String text) {
-    List<String> list = new ArrayList<String>();
-    StringReader re = new StringReader(text);
-    IKSegmenter ik = new IKSegmenter(re, true);
-    Lexeme lex = null;
-    try {
-      while ((lex = ik.next()) != null)
-        list.add(lex.getLexemeText());
-
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    return list;
-  }
+	public static List<String> seg(String text) {
+		List<Term> termList = ToAnalysis.parse(text).getTerms();
+		List<String> wordList = new ArrayList<String>();
+		for (Term wordTerm : termList) {
+			wordList.add(wordTerm.getName());
+		}
+		return wordList;
+	}
 
 }

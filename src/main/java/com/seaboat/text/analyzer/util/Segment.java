@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ansj.domain.Term;
-import org.ansj.recognition.impl.FilterRecognition;
 import org.ansj.splitWord.analysis.ToAnalysis;
 
 /**
@@ -18,19 +17,12 @@ import org.ansj.splitWord.analysis.ToAnalysis;
  */
 public class Segment {
 
-  public static List<Term> Seg(String sentence) {
-    FilterRecognition filter = new FilterRecognition();
-    filter.insertStopWord(",", " ", ".", "，", "。", ":", "：", "'", "‘", "’", "　", "“", "”", "《", "》",
-        "[", "]", "-");
-    return ToAnalysis.parse(sentence).recognition(filter).getTerms();
-  }
-
-  public static List<String> getWords(String sentence) {
-    List<Term> termList = Seg(sentence);
-    List<String> wordList = new ArrayList<String>();
-    for (Term wordTerm : termList) {
-      wordList.add(wordTerm.getName());
-    }
-    return wordList;
-  }
+	public static List<String> getWords(String sentence) {
+		List<Term> termList = ToAnalysis.parse(sentence).getTerms();
+		List<String> wordList = new ArrayList<String>();
+		for (Term wordTerm : termList) {
+			wordList.add(wordTerm.getName());
+		}
+		return wordList;
+	}
 }

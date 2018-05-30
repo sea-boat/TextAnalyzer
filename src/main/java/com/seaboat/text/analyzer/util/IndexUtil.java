@@ -1,5 +1,7 @@
 package com.seaboat.text.analyzer.util;
 
+import org.ansj.lucene6.AnsjAnalyzer;
+import org.ansj.lucene6.AnsjAnalyzer.TYPE;
 import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.index.DirectoryReader;
@@ -9,7 +11,6 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-import org.wltea.analyzer.lucene.IKAnalyzer;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -63,7 +64,7 @@ public class IndexUtil {
     if (null != indexWriter) {
       return indexWriter;
     } else {
-      Analyzer analyzer = new IKAnalyzer(true);
+      Analyzer analyzer = new AnsjAnalyzer(TYPE.query_ansj);
       IndexWriterConfig config = new IndexWriterConfig(analyzer);
       config.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
       indexWriter = new IndexWriter(directory, config);
