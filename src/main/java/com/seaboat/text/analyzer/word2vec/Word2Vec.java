@@ -22,6 +22,13 @@ import java.util.TreeSet;
  * <p>word2vec implement.</p>
  */
 public class Word2Vec {
+	static {
+		String _path = System.getProperty("word2vec.path");
+		if (_path != null)
+			path = _path;
+		else
+			throw new RuntimeException("word2vec path is not set");
+	}
 
 	private HashMap<String, float[]> wordMap = new HashMap<String, float[]>();
 	private static final int MAX_SIZE = 50;
@@ -29,10 +36,11 @@ public class Word2Vec {
 	private int size;
 	private int topNSize = 40;
 	private static Word2Vec instance = null;
-	private String path="D:/Google_word2vec_zhwiki1710_300d.bin";
+	private static String path;
 
 	private Word2Vec() {
 	}
+
 	private void init() {
 		try {
 			instance.loadGoogleModel(path);

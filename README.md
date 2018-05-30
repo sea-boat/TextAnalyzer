@@ -239,6 +239,7 @@ Then we get these below:
 
 
 ## Word2vec
+we must set the word2vec's path system parameter when startup,just like this `-Dword2vec.path=D:\Google_word2vec_zhwiki1710_300d.bin`.
 
 ```
 Word2Vec vec = Word2Vec.getInstance();
