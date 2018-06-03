@@ -2,6 +2,8 @@ package com.seaboat.text.analyzer.extractor;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.seaboat.text.analyzer.util.DataReader;
 import com.seaboat.text.analyzer.util.WordSegmentUtil;
 
@@ -23,68 +25,69 @@ import edu.mit.ll.mitie.StringVector;
  */
 public class MitieEntityExtractor implements Extractor {
 
-  private static String TRAIN_FILE = "data/tag_test.txt";
+	protected static Logger logger = Logger.getLogger(MitieEntityExtractor.class);
 
-  static {
-    try {
-      System.loadLibrary("javamitie");
-    } catch (UnsatisfiedLinkError e) {
-      System.err.println("java.library.path=" + System.getProperty("java.library.path"));
-    }
-  }
+	private static String TRAIN_FILE = "data/tag_test.txt";
 
-  @Override
-  public void train(String samplesFile) {
-    if (samplesFile == null) samplesFile = TRAIN_FILE;
-    NerTrainer nerTrainer = new NerTrainer("model/mitie_model/total_word_feature_extractor.dat");
-    List<String> texts = DataReader.readContent(samplesFile);
-    for (String text : texts) {
-      String[] line = text.split("###");
-      String[] words = line[0].split("/");
-      StringVector stringVector = new StringVector();
-      for (String word : words)
-        stringVector.add(word);
-      NerTrainingInstance nerTrainingInstance = new NerTrainingInstance(stringVector);
-      String[] ss = line[1].split("/");
-      for (String s : ss) {
-        String[] info = s.substring(1, s.length() - 1).split(",");
-        nerTrainingInstance.addEntity(Long.parseLong(info[0]), Long.parseLong(info[1]), info[2]);
-      }
-      nerTrainer.add(nerTrainingInstance);
-    }
-    nerTrainer.setThreadNum(4);
-    nerTrainer.train("model/mitie_model/test_ner_model.dat");
-  }
+	static {
+		try {
+			System.loadLibrary("javamitie");
+		} catch (UnsatisfiedLinkError e) {
+			System.err.println("java.library.path=" + System.getProperty("java.library.path"));
+		}
+	}
 
-  @Override
-  public List<String> predict(String text) {
-    NamedEntityExtractor ner = new NamedEntityExtractor("model/mitie_model/test_ner_model.dat");
-    StringVector possibleTags = ner.getPossibleNerTags();
-    // for (int i = 0; i < possibleTags.size(); ++i)
-    // System.out.println(possibleTags.get(i));
-    List<String> words = WordSegmentUtil.seg(text);
-    StringVector sVector = new StringVector();
-    for (String word : words)
-      sVector.add(word);
-    try {
-      EntityMentionVector entities = ner.extractEntities(sVector);
-      System.out.println(entities.size());
-      for (int i = 0; i < entities.size(); ++i) {
-        EntityMention entity = entities.get(i);
-        String tag = possibleTags.get(entity.getTag());
-        Double score = entity.getScore();
-        String scoreStr = String.format("%1$,.3f", score);
-        System.out.print("   Score: " + scoreStr + ": " + tag + ":");
-        for (int j = entity.getStart(); j < entity.getEnd(); ++j) {
-          System.out.print(words.get(j) + " ");
-        }
-        System.out.println("");
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+	@Override
+	public void train(String samplesFile) {
+		if (samplesFile == null)
+			samplesFile = TRAIN_FILE;
+		NerTrainer nerTrainer = new NerTrainer("model/mitie_model/total_word_feature_extractor.dat");
+		List<String> texts = DataReader.readContent(samplesFile);
+		for (String text : texts) {
+			String[] line = text.split("###");
+			String[] words = line[0].split("/");
+			StringVector stringVector = new StringVector();
+			for (String word : words)
+				stringVector.add(word);
+			NerTrainingInstance nerTrainingInstance = new NerTrainingInstance(stringVector);
+			String[] ss = line[1].split("/");
+			for (String s : ss) {
+				String[] info = s.substring(1, s.length() - 1).split(",");
+				nerTrainingInstance.addEntity(Long.parseLong(info[0]), Long.parseLong(info[1]), info[2]);
+			}
+			nerTrainer.add(nerTrainingInstance);
+		}
+		nerTrainer.setThreadNum(4);
+		nerTrainer.train("model/mitie_model/test_ner_model.dat");
+	}
 
-    return null;
-  }
+	@Override
+	public List<String> predict(String text) {
+		NamedEntityExtractor ner = new NamedEntityExtractor("model/mitie_model/test_ner_model.dat");
+		StringVector possibleTags = ner.getPossibleNerTags();
+		List<String> words = WordSegmentUtil.seg(text);
+		StringVector sVector = new StringVector();
+		for (String word : words)
+			sVector.add(word);
+		try {
+			EntityMentionVector entities = ner.extractEntities(sVector);
+			logger.debug("entities size : " + entities.size());
+			for (int i = 0; i < entities.size(); ++i) {
+				EntityMention entity = entities.get(i);
+				String tag = possibleTags.get(entity.getTag());
+				Double score = entity.getScore();
+				String scoreStr = String.format("%1$,.3f", score);
+				logger.debug("   Score: " + scoreStr + ": " + tag + ":");
+				for (int j = entity.getStart(); j < entity.getEnd(); ++j) {
+					logger.debug(words.get(j) + " ");
+				}
+				logger.debug("");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
 
 }

@@ -10,6 +10,8 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 /**
  * 
  * @author seaboat
@@ -20,6 +22,7 @@ import java.util.List;
  * <p>a hmm model which is for part of speech. it provides training method.</p>
  */
 public class HMMModel implements Serializable {
+	protected static Logger logger = Logger.getLogger(HMMModel.class);
 	private static final long serialVersionUID = -8307826997830463783L;
 	private String[] text;
 	private String[] phrase;
@@ -74,7 +77,7 @@ public class HMMModel implements Serializable {
 				try {
 					reader.close();
 				} catch (IOException e) {
-					System.out.println("close file error");
+					logger.error("close file error");
 				}
 			}
 		}
