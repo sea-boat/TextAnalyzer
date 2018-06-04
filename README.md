@@ -255,3 +255,12 @@ s1 = "我们是中国人";
 s2 = "我们是中国人";
 System.out.println(ss.getSimilarity(s1, s2));
 ```
+
+## get synonym via cilin dictionary
+
+```
+CilinDictionary dict = CilinDictionary.getInstance();
+Set<String> code = dict.getCilinCoding("人类");
+System.out.println(dict.getCilinWords(code.iterator().next()));
+[全人类, 生人, 人类]
+```

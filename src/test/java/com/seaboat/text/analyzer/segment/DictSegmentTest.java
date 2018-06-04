@@ -18,6 +18,7 @@ public class DictSegmentTest {
 		DictSegment segment = new DictSegment();
 		System.out.println(segment.seg("我是中国人"));
 		System.out.println(segment.seg("人工智能是什么"));
+		System.out.println(segment.seg("结合成分子时"));
 		System.out.println(segment.seg("北京互联网违法和不良信息举报中心"));
 	}
 	
