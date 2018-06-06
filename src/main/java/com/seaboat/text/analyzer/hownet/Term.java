@@ -122,6 +122,10 @@ public class Term {
 		return symbolSememes;
 	}
 
+	public String getDefine() {
+		return define;
+	}
+
 	@Override
 	public boolean equals(Object anObject) {
 		if (anObject instanceof Term) {

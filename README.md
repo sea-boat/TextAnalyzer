@@ -276,10 +276,18 @@ s2 = "摩托";
 System.out.println(cs.getSimilarity(s1, s2));
 ```
 
-## get hownet info
+## get hownet glossary
 ```
 HownetGlossary glossary = HownetGlossary.getInstance();
 Collection<Term> coll = glossary.getTerms("人类");
 for (Term t : coll)
-	System.out.println(t);
+  System.out.println(t);
+```
+
+## get hownet sememe
+```
+HownetSememe sememe = HownetSememe.getInstance();
+Collection<String> coll = sememe.getDefine("用具");
+for (String t : coll)
+  System.out.println(t);
 ```

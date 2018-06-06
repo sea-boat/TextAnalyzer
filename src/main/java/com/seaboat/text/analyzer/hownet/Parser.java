@@ -13,6 +13,6 @@ import com.google.common.collect.Multimap;
  */
 public interface Parser {
 
-	void parse(String file, Multimap<String, Term> map);
+	Multimap<String, ? extends Object> parse(String file);
 
 }

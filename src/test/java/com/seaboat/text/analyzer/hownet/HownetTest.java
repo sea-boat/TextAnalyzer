@@ -27,4 +27,15 @@ public class HownetTest {
 			System.out.println(t);
 	}
 
+	@Test
+	public void test2() {
+		HownetSememe sememe = HownetSememe.getInstance();
+		Collection<String> coll = sememe.getDefine("用具");
+		for (String t : coll)
+			System.out.println(t);
+		coll = sememe.getDefine("资金");
+		for (String t : coll)
+			System.out.println(t);
+	}
+
 }
