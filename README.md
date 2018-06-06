@@ -264,3 +264,22 @@ Set<String> code = dict.getCilinCoding("人类");
 System.out.println(dict.getCilinWords(code.iterator().next()));
 [全人类, 生人, 人类]
 ```
+
+## words' similarity by cilin
+```
+String s1 = "中国人";
+String s2 = "炎黄子孙";
+CilinSimilarity cs = new CilinSimilarity();
+System.out.println(cs.getSimilarity(s1, s2));
+s1 = "汽车";
+s2 = "摩托";
+System.out.println(cs.getSimilarity(s1, s2));
+```
+
+## get hownet info
+```
+HownetGlossary glossary = HownetGlossary.getInstance();
+Collection<Term> coll = glossary.getTerms("人类");
+for (Term t : coll)
+	System.out.println(t);
+```
