@@ -23,7 +23,7 @@ public class Term {
 	protected String word;
 	protected String pos;
 	protected String define;
-	protected boolean bSubstantive;
+	protected boolean substantive;
 	protected String mainSememe;
 	protected String[] secondSememes;
 	protected String[] relationSememes;
@@ -34,9 +34,9 @@ public class Term {
 		this.pos = pos;
 		this.define = (def == null) ? "" : def.trim();
 		if (define.length() > 0 && define.charAt(0) == '{' && define.charAt(define.length() - 1) == '}') {
-			this.bSubstantive = false;
+			this.substantive = false;
 		} else {
-			this.bSubstantive = true;
+			this.substantive = true;
 		}
 
 		parseDefine(def);
@@ -46,7 +46,7 @@ public class Term {
 		List<String> secondList = new ArrayList<String>();
 		List<String> relationList = new ArrayList<String>();
 		List<String> symbolList = new ArrayList<String>();
-		if (!this.bSubstantive) {
+		if (!this.substantive) {
 			tokenString = define.substring(1, define.length() - 1);
 		}
 		StringTokenizer token = new StringTokenizer(tokenString, ",", false);
@@ -102,8 +102,8 @@ public class Term {
 		this.pos = pos;
 	}
 
-	public boolean isbSubstantive() {
-		return bSubstantive;
+	public boolean isSubstantive() {
+		return substantive;
 	}
 
 	public String getMainSememe() {

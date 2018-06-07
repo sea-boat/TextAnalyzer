@@ -1,9 +1,10 @@
 package com.seaboat.text.analyzer.hownet;
 
 import java.util.Collection;
-import java.util.Set;
 
 import org.junit.Test;
+
+import com.seaboat.text.analyzer.similarity.HownetSimilarity;
 
 /**
  * 
@@ -36,6 +37,14 @@ public class HownetTest {
 		coll = sememe.getDefine("资金");
 		for (String t : coll)
 			System.out.println(t);
+	}
+
+	@Test
+	public void test3() {
+		HownetSimilarity hownetSimilarity = new HownetSimilarity();
+		//"中国人" not exist hownet dictionary
+		System.out.println("hownet similarity : " + hownetSimilarity.getSimilarity("中国", "中国人"));
+		System.out.println("hownet similarity : " + hownetSimilarity.getSimilarity("中国", "美国"));
 	}
 
 }
