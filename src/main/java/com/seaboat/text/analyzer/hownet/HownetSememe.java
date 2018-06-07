@@ -1,12 +1,10 @@
 package com.seaboat.text.analyzer.hownet;
 
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 
@@ -48,6 +46,14 @@ public class HownetSememe {
 		List<String> list = Lists.newArrayList();
 		for (Sememe s : coll)
 			list.add(s.getDefine());
+		return list;
+	}
+
+	public Collection<String> getSememeIds(String s1) {
+		List<String> list = Lists.newArrayList();
+		Collection<Sememe> coll = sememes.get(s1);
+		for (Sememe s : coll)
+			list.add(s.getId());
 		return list;
 	}
 
