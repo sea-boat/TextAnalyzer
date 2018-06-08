@@ -19,6 +19,12 @@ public class HownetSimilarity implements ISimilarity {
 
 	HownetSememeSimilarity sememeSimilarity = new HownetSememeSimilarity();
 
+	private enum MODEL {
+		UN_COMBINE_TERM, COMBINE_TERM
+	};
+
+	private MODEL model = MODEL.COMBINE_TERM;
+
 	public enum SET_OPERATE_TYPE {
 		AVERAGE, FUZZY
 	};
@@ -27,13 +33,51 @@ public class HownetSimilarity implements ISimilarity {
 
 	@Override
 	public double getSimilarity(String s1, String s2) {
+		if (model == MODEL.UN_COMBINE_TERM)
+			return getSimilarityByModel1(s1, s2);
+		else
+			return getSimilarityByModel2(s1, s2);
+	}
+
+	private double getSimilarityByModel2(String s1, String s2) {
+		double similarity = 0.0;
+		if (s1.equals(s2)) {
+			return 1.0;
+		}
+		Collection<Term> termColl1 = HownetGlossary.getInstance().getTermsWithCombining(s1);
+		Collection<Term> termColl2 = HownetGlossary.getInstance().getTermsWithCombining(s2);
+		if (isUnknownWord(termColl1) && !isUnknownWord(termColl2)) {
+			termColl1 = HownetGlossary.getInstance().autoCombineTerms(s1, termColl2);
+		} else if (isUnknownWord(termColl2) && !isUnknownWord(termColl1)) {
+			termColl2 = HownetGlossary.getInstance().autoCombineTerms(s2, termColl1);
+		} else if (isUnknownWord(termColl2) && isUnknownWord(termColl2)) {
+			termColl1 = HownetGlossary.getInstance().autoCombineTerms(s1, termColl2);
+			termColl2 = HownetGlossary.getInstance().autoCombineTerms(s2, termColl1);
+			termColl1 = HownetGlossary.getInstance().autoCombineTerms(s1, termColl2);
+			termColl2 = HownetGlossary.getInstance().autoCombineTerms(s2, termColl1);
+		}
+		for (Term c1 : termColl1) {
+			for (Term c2 : termColl2) {
+				double v = getSimilarity(c1, c2);
+				if (v > similarity) {
+					similarity = v;
+				}
+				if (similarity == 1.0) {
+					break;
+				}
+			}
+		}
+		return similarity;
+	}
+
+	private double getSimilarityByModel1(String s1, String s2) {
 		double similarity = 0.0;
 		if (s1.equals(s2)) {
 			return 1.0;
 		}
 		Collection<Term> termColl1 = HownetGlossary.getInstance().getTerms(s1);
 		Collection<Term> termColl2 = HownetGlossary.getInstance().getTerms(s2);
-		if (isBlank(termColl1) || isBlank(termColl2)) {
+		if (isUnknownWord(termColl1) || isUnknownWord(termColl2)) {
 			return 0.0;
 		}
 		for (Term t1 : termColl1) {
@@ -153,12 +197,20 @@ public class HownetSimilarity implements ISimilarity {
 		return 0.0;
 	}
 
-	private boolean isBlank(Collection<Term> term) {
+	private boolean isUnknownWord(Collection<Term> term) {
 		return term.size() == 0 || term == null;
 	}
 
 	private boolean isBlank(String[] str) {
 		return str == null || str.length == 0;
+	}
+
+	public MODEL getModel() {
+		return model;
+	}
+
+	public void setModel(MODEL model) {
+		this.model = model;
 	}
 
 }

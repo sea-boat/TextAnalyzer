@@ -291,3 +291,9 @@ Collection<String> coll = sememe.getDefine("用具");
 for (String t : coll)
   System.out.println(t);
 ```
+
+## hownet words similarity
+```
+HownetSimilarity hownetSimilarity = new HownetSimilarity();
+System.out.println("hownet similarity : " + hownetSimilarity.getSimilarity("中国", "美国"));
+```

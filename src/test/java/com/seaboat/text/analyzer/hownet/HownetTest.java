@@ -42,8 +42,11 @@ public class HownetTest {
 	@Test
 	public void test3() {
 		HownetSimilarity hownetSimilarity = new HownetSimilarity();
-		//"中国人" not exist hownet dictionary
+		// "中国人" not exist hownet dictionary,need to use combine model.
 		System.out.println("hownet similarity : " + hownetSimilarity.getSimilarity("中国", "中国人"));
+		System.out.println("hownet similarity : " + hownetSimilarity.getSimilarity("美国人", "中国人"));
+		System.out.println("hownet similarity : " + hownetSimilarity.getSimilarity("美国人", "日本人"));
+		System.out.println("hownet similarity : " + hownetSimilarity.getSimilarity("中国人", "日本人"));
 		System.out.println("hownet similarity : " + hownetSimilarity.getSimilarity("中国", "美国"));
 	}
 

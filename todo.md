@@ -4,5 +4,6 @@
 * object extraction.
 * crf model. 
 * a better segment implement.
-* ~~cilin similarity~~
-* hownet similarity.
+* ~~cilin similarity.~~
+* ~~hownet similarity.~~
+* pinyin similarity.

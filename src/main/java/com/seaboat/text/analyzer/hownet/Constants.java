@@ -19,4 +19,8 @@ public class Constants {
 	public static final double beta2 = 0.2;
 	public static final double beta3 = 0.17;
 	public static final double beta4 = 0.13;
+	public static final double PARAM_THETA = 0.5;
+	public static final double PARAM_XI = 0.6;
+	public static final double PARAM_OMEGA = 0.8;
+	public static final int MAX_COMBINED_COUNT = 12;
 }
