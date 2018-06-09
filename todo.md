@@ -7,3 +7,6 @@
 * ~~cilin similarity.~~
 * ~~hownet similarity.~~
 * pinyin similarity.
+* sentiment tendency.
+* ~~literal value similarity.~~
+* 
