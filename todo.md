@@ -6,7 +6,7 @@
 * a better segment implement.
 * ~~cilin similarity.~~
 * ~~hownet similarity.~~
-* pinyin similarity.
+* ~~pinyin similarity.~~
 * sentiment tendency.
 * ~~literal value similarity.~~
 * 
