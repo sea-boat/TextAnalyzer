@@ -297,3 +297,18 @@ for (String t : coll)
 HownetSimilarity hownetSimilarity = new HownetSimilarity();
 System.out.println("hownet similarity : " + hownetSimilarity.getSimilarity("中国", "美国"));
 ```
+
+## get pinyin 
+```
+System.out.println(PinyinUtil.getInstance().getPinyin("哈哈"));
+System.out.println(PinyinUtil.getInstance().getPinyin("中"));
+System.out.println(PinyinUtil.getInstance().getPinyin("中国"));
+```
+
+## pinyin similarity
+```
+String s1 = "今天";
+String s2 = "明天";
+PinyinSimilarity cs = new PinyinSimilarity();
+System.out.println(cs.getSimilarity(s1, s2));
+```

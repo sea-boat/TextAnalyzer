@@ -9,4 +9,4 @@
 * ~~pinyin similarity.~~
 * sentiment tendency.
 * ~~literal value similarity.~~
-* 
+* training word2vec in java.
