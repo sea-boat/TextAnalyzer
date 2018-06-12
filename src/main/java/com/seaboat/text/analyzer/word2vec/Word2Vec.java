@@ -37,27 +37,59 @@ public class Word2Vec {
 	private int topNSize = 40;
 	private static Word2Vec instance = null;
 	private static String path;
+	private boolean isGoogleModel = false;
 
 	private Word2Vec() {
 	}
 
 	private void init() {
 		try {
-			instance.loadGoogleModel(path);
+			if (isGoogleModel)
+				instance.loadGoogleModel(path);
+			else
+				instance.loadJavaModel(path);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static Word2Vec getInstance() {
+	public static Word2Vec getInstance(boolean isGoogleModel) {
 		if (instance == null)
 			synchronized (Word2Vec.class) {
 				if (instance != null)
 					return instance;
 				instance = new Word2Vec();
+				instance.isGoogleModel = isGoogleModel;
 				instance.init();
 			}
 		return instance;
+	}
+
+	public void loadJavaModel(String path) throws IOException {
+		try (DataInputStream dis = new DataInputStream(new BufferedInputStream(new FileInputStream(path)))) {
+			words = dis.readInt();
+			size = dis.readInt();
+			float vector = 0;
+			String key = null;
+			float[] value = null;
+			for (int i = 0; i < words; i++) {
+				double len = 0;
+				key = dis.readUTF();
+				value = new float[size];
+				for (int j = 0; j < size; j++) {
+					vector = dis.readFloat();
+					len += vector * vector;
+					value[j] = vector;
+				}
+
+				len = Math.sqrt(len);
+				for (int j = 0; j < size; j++) {
+					value[j] /= len;
+				}
+				wordMap.put(key, value);
+			}
+
+		}
 	}
 
 	public void loadGoogleModel(String path) throws IOException {

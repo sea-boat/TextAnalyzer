@@ -207,8 +207,17 @@ Then we get these below:
 ## Word2vec
 we must set the word2vec's path system parameter when startup,just like this `-Dword2vec.path=D:\Google_word2vec_zhwiki1710_300d.bin`.
 
+using google model.
+
 ```
-Word2Vec vec = Word2Vec.getInstance();
+Word2Vec vec = Word2Vec.getInstance(true);
+System.out.println("狗|猫: " + vec.wordSimilarity("狗", "猫"));
+```
+
+using java model
+
+```
+Word2Vec vec = Word2Vec.getInstance(false);
 System.out.println("狗|猫: " + vec.wordSimilarity("狗", "猫"));
 ```
 

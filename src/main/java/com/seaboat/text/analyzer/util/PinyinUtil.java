@@ -113,25 +113,4 @@ public class PinyinUtil {
 		return sb.toString();
 	}
 
-	private static class MyTraverseEvent {
-		/** 一个汉字对应多个拼音, 多个拼音放到集合中 */
-		private Map<Character, Set<String>> pinyins = null;
-
-		public MyTraverseEvent() {
-			this.pinyins = new HashMap<Character, Set<String>>();
-		}
-
-		public Map<Character, Set<String>> getPinyins() {
-			return pinyins;
-		}
-
-		public boolean visit(String item) {
-			if (item.startsWith("//")) {
-				return true;
-			}
-
-			return true;
-		}
-	}
-
 }

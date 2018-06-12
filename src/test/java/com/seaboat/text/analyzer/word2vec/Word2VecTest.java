@@ -19,9 +19,11 @@ public class Word2VecTest {
 
 	@Test
 	public void test() {
-		Word2Vec vec = Word2Vec.getInstance();
+
+		Word2Vec vec = Word2Vec.getInstance(false);
 		System.out.println("狗|猫: " + vec.wordSimilarity("狗", "猫"));
 		System.out.println("电脑|计算机: " + vec.wordSimilarity("电脑", "计算机"));
+		System.out.println("中国|美国: " + vec.wordSimilarity("中国", "美国"));
 		String s1 = "我们是中国人";
 		String s2 = "他们是日本人，四贵子";
 		List list1 = Segment.getWords(s1);

@@ -1,6 +1,15 @@
 
 ## Change Log:
 
+***2018-06-11:***
+TextAnalyzer supports the java model of word2vec.
+
+***2018-06-08:***
+TextAnalyzer supports hownet dictionary.
+
+***2018-06-04:***
+TextAnalyzer supports cilin dictionary.
+
 ***2018-05-30:***
 TextAnalyzer supports calculating similarity between two sentences.
 

@@ -50,7 +50,7 @@ public class EditBlock {
 	}
 
 	private double getSimilarity(String word1, String word2) {
-		return Word2Vec.getInstance().wordSimilarity(word1, word2);
+		return Word2Vec.getInstance(false).wordSimilarity(word1, word2);
 	}
 
 	public String toString() {
