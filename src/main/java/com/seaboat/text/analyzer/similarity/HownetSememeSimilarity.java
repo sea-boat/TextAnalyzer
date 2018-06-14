@@ -7,7 +7,7 @@ import com.seaboat.text.analyzer.hownet.HownetSememe;
 
 /**
  * 
- * @author seaboat
+ * @author from https://github.com/iamxiatian/xsimilarity
  * @date 2018-06-06
  * @version 1.0
  * <pre><b>email: </b>849586227@qq.com</pre>

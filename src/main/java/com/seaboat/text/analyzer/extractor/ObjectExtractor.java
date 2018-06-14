@@ -1,4 +1,4 @@
-package com.seaboat.text.analyzer.tag;
+package com.seaboat.text.analyzer.extractor;
 
 import java.util.ArrayList;
 import java.util.HashMap;

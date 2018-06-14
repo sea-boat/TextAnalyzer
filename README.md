@@ -6,12 +6,12 @@ So far, it supports hot word extracting, text classification, part of speech tag
 
 # Features
 
-***extracting hot words from a text.***
+***extracting hot words from text.***
 1. to gather statistics via frequence.
 2. to gather statistics via by tf-idf algorithm
 3. to gather statistics via a score factor additionally.
 
-***extracting address from a text.***
+***extracting address from text.***
 
 ***synonym can be recognized***
 

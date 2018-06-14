@@ -9,7 +9,7 @@ import com.seaboat.text.analyzer.util.PinyinUtil;
 
 /**
  * 
- * @author seaboat
+ * @author from https://github.com/iamxiatian/xsimilarity
  * @date 2018-06-11
  * @version 1.0
  * <pre><b>email: </b>849586227@qq.com</pre>

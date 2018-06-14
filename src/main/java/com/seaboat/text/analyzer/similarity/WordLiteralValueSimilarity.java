@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 /**
  * 
- * @author seaboat
+ * @author from https://github.com/iamxiatian/xsimilarity
  * @date 2018-06-08
  * @version 1.0
  * <pre><b>email: </b>849586227@qq.com</pre>

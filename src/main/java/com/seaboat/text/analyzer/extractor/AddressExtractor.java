@@ -1,13 +1,11 @@
-package com.seaboat.text.analyzer.tag;
+package com.seaboat.text.analyzer.extractor;
 
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
 import com.seaboat.text.analyzer.IAddressExtractor;
-import com.seaboat.text.analyzer.hotword.WordPopularityScore;
 
 /**
  * 
