@@ -2,7 +2,7 @@
 
 A text analyzer which is based on machine learning that can analyze text.
 
-So far, it supports hot word extracting, text classification, part of speech tagging, named entity recognition, chinese word segment, extracting address, synonym, text clustering, word2vec model, edit distance, chinese word segment, sentence similarity. 
+So far, it supports hot word extracting, text classification, part of speech tagging, named entity recognition, chinese word segment, extracting address, synonym, text clustering, word2vec model, edit distance, chinese word segment, sentence similarity, extracting name, extracting ID. 
 
 # Features
 
@@ -321,3 +321,104 @@ String s2 = "明天";
 PinyinSimilarity cs = new PinyinSimilarity();
 System.out.println(cs.getSimilarity(s1, s2));
 ```
+
+## information extractor
+### usage
+We have provided Python and Java APIs for extractor,choose one of them.
+
+### python
+do a predict by this below,
+```
+python crf_ner.py predict "测试文本" "../model/crf.model"
+```
+
+### java 
+
+```
+List list = JCYExtractor.getIDs(text);
+
+list = JCYExtractor.getNames(text);
+
+JCYExtractor.getAddrs(text);
+```
+
+### train a model 
+1. To collect corpus.
+2. Tagging corpus,we support those labels below,
+
+```
+# IB : ID beginning
+# IE : ID ending
+# IM : ID middle
+# U : unlabeled
+# PB : person beginning
+# PE : person ending
+# PM : person middle
+# BB : birthday beginning
+# BM : birthday middle
+# BE : birthday ending
+# LB : location beginning
+# LM : location middle
+# LE : location endings
+```
+
+for example,
+
+```
+被	U
+不	U
+起	U
+诉	U
+人	U
+伍	PB
+某	PM
+某	PE
+，	U
+男	U
+，	U
+1	U
+9	U
+9	U
+9	U
+年	U
+*	U
+*	U
+月	U
+*	U
+*	U
+日	U
+出	U
+生	U
+，	U
+居	U
+民	U
+身	U
+份	U
+证	U
+号	U
+码	U
+4	IB
+4	IM
+0	IM
+9	IM
+8	IM
+1	IM
+1	IM
+9	IM
+9	IM
+9	IM
+*	IM
+*	IM
+*	IM
+*	IM
+*	IM
+*	IM
+*	IM
+*	IE
+，	U
+汉	U
+族	U
+```
+
+3. Put all samples to the directory of `data/jcy_data/train`.
+4. Call `train` function in the `crf_ner.py` script，the model will produce in the directory of `model` which name is `crf.model`.

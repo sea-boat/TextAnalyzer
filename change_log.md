@@ -1,6 +1,9 @@
 
 ## Change Log:
 
+***2018-06-11***
+TextAnalyzer supports information extractor(including id,address,name).
+
 ***2018-06-11:***
 TextAnalyzer supports the java model of word2vec.
 
