@@ -2,7 +2,7 @@
 
 A text analyzer which is based on machine learning that can analyze text.
 
-So far, it supports hot word extracting, text classification, part of speech tagging, named entity recognition, chinese word segment, extracting address, synonym, text clustering, word2vec model, edit distance, chinese word segment, sentence similarity, extracting name, extracting ID. 
+So far, it supports hot word extracting, text classification, part of speech tagging, named entity recognition, chinese word segment, extracting address, synonym, text clustering, word2vec model, edit distance, chinese word segment, sentence similarity, extracting name, extracting ID, word sentiment tendency. 
 
 # Features
 
@@ -265,7 +265,7 @@ s2 = "我们是中国人";
 System.out.println(ss.getSimilarity(s1, s2));
 ```
 
-## get synonym via cilin dictionary
+## Get Synonym via Cilin Dictionary
 
 ```
 CilinDictionary dict = CilinDictionary.getInstance();
@@ -274,7 +274,7 @@ System.out.println(dict.getCilinWords(code.iterator().next()));
 [全人类, 生人, 人类]
 ```
 
-## words' similarity by cilin
+## Words' Similarity by Cilin
 ```
 String s1 = "中国人";
 String s2 = "炎黄子孙";
@@ -285,7 +285,7 @@ s2 = "摩托";
 System.out.println(cs.getSimilarity(s1, s2));
 ```
 
-## get hownet glossary
+## Get Hownet Glossary
 ```
 HownetGlossary glossary = HownetGlossary.getInstance();
 Collection<Term> coll = glossary.getTerms("人类");
@@ -293,7 +293,7 @@ for (Term t : coll)
   System.out.println(t);
 ```
 
-## get hownet sememe
+## Get Hownet Sememe
 ```
 HownetSememe sememe = HownetSememe.getInstance();
 Collection<String> coll = sememe.getDefine("用具");
@@ -301,20 +301,20 @@ for (String t : coll)
   System.out.println(t);
 ```
 
-## hownet words similarity
+## Hownet Words Similarity
 ```
 HownetSimilarity hownetSimilarity = new HownetSimilarity();
 System.out.println("hownet similarity : " + hownetSimilarity.getSimilarity("中国", "美国"));
 ```
 
-## get pinyin 
+## Get Pinyin 
 ```
 System.out.println(PinyinUtil.getInstance().getPinyin("哈哈"));
 System.out.println(PinyinUtil.getInstance().getPinyin("中"));
 System.out.println(PinyinUtil.getInstance().getPinyin("中国"));
 ```
 
-## pinyin similarity
+## Pinyin Similarity
 ```
 String s1 = "今天";
 String s2 = "明天";
@@ -322,7 +322,7 @@ PinyinSimilarity cs = new PinyinSimilarity();
 System.out.println(cs.getSimilarity(s1, s2));
 ```
 
-## information extractor
+## Information Extractor
 ### usage
 We have provided Python and Java APIs for extractor,choose one of them.
 
@@ -374,51 +374,16 @@ for example,
 某	PM
 某	PE
 ，	U
-男	U
-，	U
-1	U
-9	U
-9	U
-9	U
-年	U
-*	U
-*	U
-月	U
-*	U
-*	U
-日	U
-出	U
-生	U
-，	U
-居	U
-民	U
-身	U
-份	U
-证	U
-号	U
-码	U
-4	IB
-4	IM
-0	IM
-9	IM
-8	IM
-1	IM
-1	IM
-9	IM
-9	IM
-9	IM
-*	IM
-*	IM
-*	IM
-*	IM
-*	IM
-*	IM
-*	IM
-*	IE
-，	U
-汉	U
-族	U
 ```
 
 3. Put all samples to the directory of `data/jcy_data/train`.
 4. Call `train` function in the `crf_ner.py` script，the model will produce in the directory of `model` which name is `crf.model`.
+
+
+## Word Tendency
+
+```
+WordSentimentTendency tendency = new WordSentimentTendency();
+System.out.println(tendency.getTendency("高兴"));
+System.out.println(tendency.getTendency("伤心"));
+```

@@ -1,6 +1,9 @@
 
 ## Change Log:
 
+***2018-06-25***
+TextAnalyzer supports word sentiment tendency.
+
 ***2018-06-11***
 TextAnalyzer supports information extractor(including id,address,name).
 
