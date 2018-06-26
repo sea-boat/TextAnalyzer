@@ -2,7 +2,8 @@
 * a better tagging method by java. 
 * address extraction.
 * object extraction.
-* crf model. 
+* ~~crf model by java.~~
+* ~~crf model by python.~~
 * a better segment implement.
 * ~~cilin similarity.~~
 * ~~hownet similarity.~~

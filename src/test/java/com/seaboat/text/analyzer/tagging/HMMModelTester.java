@@ -7,6 +7,8 @@ import java.util.List;
 import org.ansj.domain.Term;
 import org.ansj.splitWord.analysis.ToAnalysis;
 
+import com.seaboat.text.analyzer.ml.hmm.HMMModel;
+import com.seaboat.text.analyzer.ml.hmm.ViterbiDecoder;
 import com.seaboat.text.analyzer.util.StringUtil;
 
 /**

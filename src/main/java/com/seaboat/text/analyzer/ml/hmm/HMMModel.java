@@ -1,4 +1,4 @@
-package com.seaboat.text.analyzer.tagging;
+package com.seaboat.text.analyzer.ml.hmm;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;

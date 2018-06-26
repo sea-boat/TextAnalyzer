@@ -4,6 +4,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+import com.seaboat.text.analyzer.ml.hmm.HMMModel;
+
 /**
  * 
  * @author seaboat
@@ -22,6 +24,7 @@ public class HMMTrainer {
 		try {
 			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(path));
 			out.writeObject(model);
+			out.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

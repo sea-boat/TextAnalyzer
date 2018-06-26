@@ -9,7 +9,8 @@ import java.util.List;
 import org.ansj.domain.Term;
 import org.ansj.splitWord.analysis.ToAnalysis;
 
-import com.seaboat.text.analyzer.util.StringUtil;
+import com.seaboat.text.analyzer.ml.hmm.HMMModel;
+import com.seaboat.text.analyzer.ml.hmm.ViterbiDecoder;
 
 /**
  * 
@@ -37,6 +38,7 @@ public class HMMPredictor {
 					ObjectInputStream in = new ObjectInputStream(new FileInputStream(path));
 					hmm = (HMMModel) in.readObject();
 					decoder = new ViterbiDecoder(hmm);
+					in.close();
 				} catch (IOException | ClassNotFoundException e) {
 					e.printStackTrace();
 					throw new RuntimeException("HMM fails to init... ");
