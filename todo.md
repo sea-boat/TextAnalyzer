@@ -8,6 +8,7 @@
 * ~~cilin similarity.~~
 * ~~hownet similarity.~~
 * ~~pinyin similarity.~~
+* ac+trie tree segment.
 * sentiment tendency.
 * ~~literal value similarity.~~
 * ~~training word2vec in java.~~

@@ -2,6 +2,15 @@ package com.seaboat.text.analyzer.ml.crf;
 
 import smile.sequence.CRF;
 
+/**
+ * 
+ * @author seaboat
+ * @date 2018-06-26
+ * @version 1.0
+ * <pre><b>email: </b>849586227@qq.com</pre>
+ * <pre><b>blog: </b>http://blog.csdn.net/wangyangzhizhou</pre>
+ * <p>crf tester.</p>
+ */
 public class CrfTest {
 
 	public static void main(String[] args) {

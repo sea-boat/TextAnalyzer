@@ -23,7 +23,7 @@ public class DictSegment implements Segment {
 
 	private static Logger logger = Logger.getLogger(DictSegment.class);
 	private static String DIC_FILE = "/finger.dic";
-	private static TrieTree tree = new TrieTree();
+	private static ACTrieTree tree = new ACTrieTree();
 
 	@Override
 	public List<String> seg(String text) {
