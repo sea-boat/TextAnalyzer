@@ -27,6 +27,7 @@ public class DictSegment implements Segment {
 
 	@Override
 	public List<String> seg(String text) {
+
 		int flag = 0;
 		int delta = 1;
 		List<String> words = new ArrayList<String>();
@@ -70,6 +71,11 @@ public class DictSegment implements Segment {
 			logger.error("IOException", e);
 		}
 		return words;
+	}
+
+	@Override
+	public List<String> Search(String text) {
+		return tree.acSearch(text);
 	}
 
 }

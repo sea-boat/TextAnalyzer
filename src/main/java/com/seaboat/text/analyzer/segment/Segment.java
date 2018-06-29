@@ -14,5 +14,7 @@ import java.util.List;
 public interface Segment {
 	
 	public List<String> seg(String text);
+	
+	public List<String> Search(String text);
 
 }

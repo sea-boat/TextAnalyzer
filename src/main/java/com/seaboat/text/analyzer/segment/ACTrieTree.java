@@ -78,35 +78,40 @@ public class ACTrieTree {
 	public List<String> acSearch(String str) {
 		List<String> list = new ArrayList<String>();
 		ACTrieNode current = this.root;
-		for (String s : str.split("")) {
-			ACTrieNode child = current.getChild(s);
-			//jump the prefix which is not exist in teri tree.
-			if (child == null && current == root)
-				continue;
-			if (child == null) {
-				current = current.getFailureNode();
-				//jump the word which is not exist in teri tree.
-				if (current == this.root && current.getChild(s) == null)
+		try {
+			L1: for (String s : str.split("")) {
+				ACTrieNode child = current.getChild(s);
+				//jump the prefix which is not exist in teri tree.
+				if (child == null && current == root) {
 					continue;
-				child = current.getChild(s);
-				if (child != null)
-					current = child;
-				else
-					current = this.root;
-			}
-			if (System.getProperty("Debug") != null && System.getProperty("Debug").equalsIgnoreCase("true"))
-				if (child != null)
-					System.out.println(child.toString());
-			current = child;
-			if (current.getResults() != null) {
-				ACArray[] results = current.getResults();
-				for (ACArray arr : results)
-					try {
-						list.add(new String(arr.getValue(), "utf-8"));
-					} catch (UnsupportedEncodingException e) {
-						logger.warn("fail to search trie tree. ", e);
+				}
+				if (child == null) {
+					ACTrieNode failure = current.getFailureNode();
+					//jump the word which is not exist in teri tree.
+					while (failure.getChild(s) == null) {
+						if (failure == this.root)
+							continue L1;
+						failure = failure.getFailureNode();
 					}
+					current = failure;
+					child = current.getChild(s);
+					if (child != null)
+						current = child;
+					else
+						current = this.root;
+				}
+				if (System.getProperty("Debug") != null && System.getProperty("Debug").equalsIgnoreCase("true"))
+					if (child != null)
+						System.out.println(child.toString());
+				current = child;
+				if (current.getResults() != null) {
+					ACArray[] results = current.getResults();
+					for (ACArray arr : results)
+						list.add(new String(arr.getValue(), "utf-8"));
+				}
 			}
+		} catch (UnsupportedEncodingException e) {
+			logger.warn("fail to search trie tree. ", e);
 		}
 		return list;
 	}

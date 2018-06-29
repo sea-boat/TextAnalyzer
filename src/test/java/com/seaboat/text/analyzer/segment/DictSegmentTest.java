@@ -20,6 +20,11 @@ public class DictSegmentTest {
 		System.out.println(segment.seg("人工智能是什么"));
 		System.out.println(segment.seg("结合成分子时"));
 		System.out.println(segment.seg("北京互联网违法和不良信息举报中心"));
+//
+		System.out.println(segment.Search("我在广州市"));
+		System.out.println(segment.Search("人工智能是什么"));
+		System.out.println(segment.Search("结合成分子时"));
+		System.out.println(segment.Search("北京互联网违法和不良信息举报中心"));
 	}
-	
+
 }
