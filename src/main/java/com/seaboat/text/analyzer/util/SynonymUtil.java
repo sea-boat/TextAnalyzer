@@ -1,6 +1,7 @@
 package com.seaboat.text.analyzer.util;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,33 +22,36 @@ import com.seaboat.text.analyzer.hotword.Synonym;
  * <p>synonym util for operating synonym.dic.</p>
  */
 public class SynonymUtil {
-  protected static Logger logger = Logger.getLogger(SynonymUtil.class);
-  private static List<Synonym> synonyms = new LinkedList<Synonym>();
-  static {
-    InputStreamReader read;
-    try {
-      read = new InputStreamReader(Object.class.getResourceAsStream("/synonym.dic"), "UTF-8");
-      BufferedReader bufferedReader = new BufferedReader(read);
-      String line;
-      while ((line = bufferedReader.readLine()) != null) {
-        String[] ss = line.split(";");
-        Synonym synonym = new Synonym();
-        for (String s : ss)
-          synonym.addSnonoym(s);
-        synonyms.add(synonym);
-      }
-    } catch (FileNotFoundException e) {
-      logger.error("File not found", e);
-    } catch (IOException e) {
-      logger.error("IOException", e);
-    }
-  }
+	protected static Logger logger = Logger.getLogger(SynonymUtil.class);
+	private static List<Synonym> synonyms = new LinkedList<Synonym>();
+	static {
+		String path = System.getProperty("user.dir");
+		InputStreamReader read;
+		try {
+			read = new InputStreamReader(new FileInputStream(path + "/resources/synonym.dic"), "UTF-8");
+			BufferedReader bufferedReader = new BufferedReader(read);
+			String line;
+			while ((line = bufferedReader.readLine()) != null) {
+				String[] ss = line.split(";");
+				Synonym synonym = new Synonym();
+				for (String s : ss)
+					synonym.addSnonoym(s);
+				synonyms.add(synonym);
+			}
+			bufferedReader.close();
+		} catch (FileNotFoundException e) {
+			logger.error("File not found", e);
+		} catch (IOException e) {
+			logger.error("IOException", e);
+		}
+	}
 
-  public static String getSynonym(String term) {
-    String str;
-    for (Synonym s : synonyms)
-      if ((str = s.getSynonym(term)) != null) return str;
-    return null;
-  }
+	public static String getSynonym(String term) {
+		String str;
+		for (Synonym s : synonyms)
+			if ((str = s.getSynonym(term)) != null)
+				return str;
+		return null;
+	}
 
 }

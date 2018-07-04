@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.seaboat.text.analyzer.hownet.HownetGlossary;
-import com.seaboat.text.analyzer.hownet.HownetSememe;
 import com.seaboat.text.analyzer.hownet.Term;
 import com.seaboat.text.analyzer.similarity.HownetSememeSimilarity;
 

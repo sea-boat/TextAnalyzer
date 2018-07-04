@@ -13,10 +13,10 @@ import java.util.List;
  */
 public interface InfoExtractor {
 
-	public List getIDs(String text);
+	public List<String> getIDs(String text);
 
-	public List getNames(String text);
+	public List<String> getNames(String text);
 
-	public List getAddrs(String text);
+	public List<String> getAddrs(String text);
 
 }

@@ -1,9 +1,6 @@
 package com.seaboat.text.analyzer.hotword;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Properties;
@@ -22,30 +19,32 @@ import com.seaboat.text.analyzer.ScoreFactor;
  * <p>Word popularity Score is mapping to word-popularity.properties file. This means that the popularity of each word. </p>
  */
 public class WordPopularityScore implements ScoreFactor {
-  protected static Logger logger = Logger.getLogger(WordPopularityScore.class);
-  static Properties prop = new Properties();
-  static {
-    InputStreamReader in;
-    try {
-      InputStream is = WordPopularityScore.class.getResourceAsStream("/word-popularity.properties");
-      in = new InputStreamReader(is, "UTF-8");
-      prop.load(in);
-    } catch (Exception e) {
-      try {
-        InputStream is = new FileInputStream("word-popularity.properties");
-        in = new InputStreamReader(is, "UTF-8");
-        prop.load(in);
-      } catch (Exception e1) {
-        logger.equals(e1);
-      }
-    }
-  }
+	protected static Logger logger = Logger.getLogger(WordPopularityScore.class);
+	static Properties prop = new Properties();
+	static {
+		String path = System.getProperty("user.dir");
+		InputStreamReader in;
+		try {
+			InputStream is = new FileInputStream(path + "/resources/word-popularity.properties");
+			in = new InputStreamReader(is, "UTF-8");
+			prop.load(in);
+		} catch (Exception e) {
+			try {
+				InputStream is = new FileInputStream("word-popularity.properties");
+				in = new InputStreamReader(is, "UTF-8");
+				prop.load(in);
+			} catch (Exception e1) {
+				logger.error(e1);
+			}
+		}
+	}
 
-  @Override
-  public float getScoreFactor(String term) {
-    Object o = prop.get(term);
-    if (o != null) return Float.parseFloat(String.valueOf(o));
-    return 0;
-  }
+	@Override
+	public float getScoreFactor(String term) {
+		Object o = prop.get(term);
+		if (o != null)
+			return Float.parseFloat(String.valueOf(o));
+		return 0;
+	}
 
 }

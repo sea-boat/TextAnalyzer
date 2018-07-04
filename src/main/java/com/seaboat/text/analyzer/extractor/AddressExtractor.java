@@ -22,7 +22,7 @@ public class AddressExtractor implements IAddressExtractor {
 	@Override
 	public List<String> extract(String text) {
 		HashMap<String, String> map = new HashMap<String, String>();
-		List list = new ArrayList();
+		List<String> list = new ArrayList<String>();
 		for (String key : map.keySet()) {
 			String value = map.get(key);
 			if (value.equals("地名"))

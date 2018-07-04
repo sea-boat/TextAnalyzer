@@ -24,7 +24,7 @@ public class CrfInfoExtractor implements InfoExtractor {
 	private static String model_path = dir + "/model/crf/crf.model";
 
 	@Override
-	public List getIDs(String text) {
+	public List<String> getIDs(String text) {
 		String line;
 		String string = "";
 		try {
@@ -39,11 +39,11 @@ public class CrfInfoExtractor implements InfoExtractor {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		List IDs = new ArrayList();
+		List<String> IDs = new ArrayList<String>();
 		if (string.length() > 0) {
 			String[] labels = string.split(" ");
-			List<Integer> idBegins = new ArrayList();
-			List<Integer> idEnds = new ArrayList();
+			List<Integer> idBegins = new ArrayList<Integer>();
+			List<Integer> idEnds = new ArrayList<Integer>();
 			for (int i = 0; i < labels.length; i++) {
 				if (labels[i].equals("IB")) {
 					idBegins.add(i);
@@ -59,7 +59,7 @@ public class CrfInfoExtractor implements InfoExtractor {
 	}
 
 	@Override
-	public List getNames(String text) {
+	public List<String> getNames(String text) {
 		String line;
 		String string = "";
 		try {
@@ -74,11 +74,11 @@ public class CrfInfoExtractor implements InfoExtractor {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		List IDs = new ArrayList();
+		List<String> IDs = new ArrayList<String>();
 		if (string.length() > 0) {
 			String[] labels = string.split(" ");
-			List<Integer> idBegins = new ArrayList();
-			List<Integer> idEnds = new ArrayList();
+			List<Integer> idBegins = new ArrayList<Integer>();
+			List<Integer> idEnds = new ArrayList<Integer>();
 			for (int i = 0; i < labels.length; i++) {
 				if (labels[i].equals("PB")) {
 					idBegins.add(i);
@@ -94,7 +94,7 @@ public class CrfInfoExtractor implements InfoExtractor {
 	}
 
 	@Override
-	public List getAddrs(String text) {
+	public List<String> getAddrs(String text) {
 		String line;
 		String string = "";
 		try {
@@ -109,11 +109,11 @@ public class CrfInfoExtractor implements InfoExtractor {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		List IDs = new ArrayList();
+		List<String> IDs = new ArrayList<String>();
 		if (string.length() > 0) {
 			String[] labels = string.split(" ");
-			List<Integer> idBegins = new ArrayList();
-			List<Integer> idEnds = new ArrayList();
+			List<Integer> idBegins = new ArrayList<Integer>();
+			List<Integer> idEnds = new ArrayList<Integer>();
 			for (int i = 0; i < labels.length; i++) {
 				if (labels[i].equals("LB")) {
 					idBegins.add(i);

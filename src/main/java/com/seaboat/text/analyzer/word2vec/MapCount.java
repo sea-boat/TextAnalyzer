@@ -17,11 +17,11 @@ public class MapCount<T> {
 	private HashMap<T, Integer> hm = null;
 
 	public MapCount() {
-		this.hm = new HashMap();
+		this.hm = new HashMap<T, Integer>();
 	}
 
 	public MapCount(int initialCapacity) {
-		this.hm = new HashMap(initialCapacity);
+		this.hm = new HashMap<T, Integer>(initialCapacity);
 	}
 
 	public void add(T t, int n) {
@@ -51,12 +51,12 @@ public class MapCount<T> {
 	}
 
 	public String getDic() {
-		Iterator iterator = this.hm.entrySet().iterator();
+		Iterator<?> iterator = this.hm.entrySet().iterator();
 		StringBuilder sb = new StringBuilder();
-		Entry next = null;
+		Entry<?, ?> next = null;
 
 		while (iterator.hasNext()) {
-			next = (Entry) iterator.next();
+			next = (Entry<?, ?>) iterator.next();
 			sb.append(next.getKey());
 			sb.append("\t");
 			sb.append(next.getValue());

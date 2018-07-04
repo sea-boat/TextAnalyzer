@@ -222,11 +222,11 @@ System.out.println("狗|猫: " + vec.wordSimilarity("狗", "猫"));
 ```
 
 
-## Segment
+## Segment&Search
 ```
 DictSegment segment = new DictSegment();
 System.out.println(segment.seg("我是中国人"));
-
+System.out.println(segment.Search("我在广州市"));
 ```
 
 ## Edit Distance

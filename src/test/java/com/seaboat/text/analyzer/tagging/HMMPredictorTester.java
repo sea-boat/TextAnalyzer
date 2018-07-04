@@ -4,11 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ansj.domain.Term;
-import org.ansj.splitWord.analysis.ToAnalysis;
-
-import com.seaboat.text.analyzer.util.StringUtil;
-
 /**
  * 
  * @author seaboat

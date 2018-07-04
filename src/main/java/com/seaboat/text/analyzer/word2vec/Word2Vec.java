@@ -37,7 +37,7 @@ public class Word2Vec {
 	private int topNSize = 40;
 	private static Word2Vec instance = null;
 	private static String path;
-	private boolean isGoogleModel = false;
+	private boolean isGoogleModel = true;
 
 	private Word2Vec() {
 	}

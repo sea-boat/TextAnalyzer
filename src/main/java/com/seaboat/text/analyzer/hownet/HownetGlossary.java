@@ -5,8 +5,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.seaboat.text.analyzer.similarity.HownetSememeSimilarity;
@@ -21,8 +19,6 @@ import com.seaboat.text.analyzer.similarity.HownetSememeSimilarity;
  * <p>the glossary hownet.</p>
  */
 public class HownetGlossary {
-
-	private static Logger logger = Logger.getLogger(HownetGlossary.class);
 
 	private static Multimap<String, Term> glossary = null;
 
@@ -53,7 +49,7 @@ public class HownetGlossary {
 		}
 		return terms;
 	}
-	
+
 	public Collection<Term> getTermsWithCombining(String key) {
 		return glossary.get(key);
 	}

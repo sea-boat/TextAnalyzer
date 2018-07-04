@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.seaboat.text.analyzer.extractor.ObjectExtractor;
-
 /**
  * 
  * @author seaboat
@@ -21,7 +19,7 @@ public class CrfInfoExtractorTest {
 	public void testExtract() {
 		InfoExtractor extractor = new CrfInfoExtractor();
 		String text = " 被告人张某某，男，1965年**月**日出生，身份证号码4105261965********，汉族，小学文化，务农，河南省滑县人，户籍所在地河南省xx市滑县**镇**村***号，无前科。因涉嫌危险驾驶罪，于2017年12月28日被滑县公安局刑事拘留。";
-		List list = extractor.getIDs(text);
+		List<String> list = extractor.getIDs(text);
 		System.out.println(list);
 		list = extractor.getNames(text);
 		System.out.println(list);

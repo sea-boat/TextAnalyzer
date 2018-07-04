@@ -3,8 +3,6 @@ package com.seaboat.text.analyzer.hownet;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 
@@ -18,8 +16,6 @@ import com.google.common.collect.Multimap;
  * <p>hownet's sememe.</p>
  */
 public class HownetSememe {
-
-	private static Logger logger = Logger.getLogger(HownetSememe.class);
 
 	private static Multimap<String, Sememe> sememes = null;
 

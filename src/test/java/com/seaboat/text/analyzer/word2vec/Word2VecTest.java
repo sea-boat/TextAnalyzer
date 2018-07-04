@@ -26,8 +26,8 @@ public class Word2VecTest {
 		System.out.println("中国|美国: " + vec.wordSimilarity("中国", "美国"));
 		String s1 = "我们是中国人";
 		String s2 = "他们是日本人，四贵子";
-		List list1 = Segment.getWords(s1);
-		List list2 = Segment.getWords(s2);
+		List<String> list1 = Segment.getWords(s1);
+		List<String> list2 = Segment.getWords(s2);
 		System.out.println(vec.sentenceSimilarity(list1, list2));
 		s1 = "我们是中国人";
 		s2 = "我们是中国人";

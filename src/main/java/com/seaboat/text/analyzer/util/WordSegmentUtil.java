@@ -26,4 +26,9 @@ public class WordSegmentUtil {
 		return wordList;
 	}
 
+	public static List<Term> segment(String text) {
+		List<Term> termList = ToAnalysis.parse(text).getTerms();
+		return termList;
+	}
+	
 }
