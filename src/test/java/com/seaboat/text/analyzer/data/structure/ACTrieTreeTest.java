@@ -1,6 +1,8 @@
-package com.seaboat.text.analyzer.segment;
+package com.seaboat.text.analyzer.data.structure;
 
 import org.junit.Test;
+
+import com.seaboat.text.analyzer.data.structure.ACTrieTree;
 
 /**
  * 
@@ -11,7 +13,7 @@ import org.junit.Test;
  * <pre><b>blog: </b>http://blog.csdn.net/wangyangzhizhou</pre>
  * <p>address extractor tester.</p>
  */
-public class ACTeriTreeTest {
+public class ACTrieTreeTest {
 
 	@Test
 	public void createAndDeleteTree() {

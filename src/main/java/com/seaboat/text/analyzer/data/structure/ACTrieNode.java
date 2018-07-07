@@ -1,4 +1,4 @@
-package com.seaboat.text.analyzer.segment;
+package com.seaboat.text.analyzer.data.structure;
 
 import java.io.UnsupportedEncodingException;
 

@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.seaboat.text.analyzer.data.structure.ACTrieTree;
+
 /**
  * 
  * @author seaboat
