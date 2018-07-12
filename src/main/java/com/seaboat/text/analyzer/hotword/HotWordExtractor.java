@@ -1,6 +1,7 @@
 package com.seaboat.text.analyzer.hotword;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -79,10 +80,10 @@ public class HotWordExtractor implements IHotWordExtractor {
 			// match the synonym
 			List<Result> toRemove = new LinkedList<Result>();
 			for (Result result : list) {
-				String synonym;
-				if ((synonym = SynonymUtil.getSynonym(result.getTerm())) != null)
+				Collection<String> synonyms;
+				if ((synonyms = SynonymUtil.get(null).getSynonym(result.getTerm())) != null)
 					for (Result r : list) {
-						if (r.getTerm().equals(synonym)) {
+						if (synonyms.contains(r.getTerm())) {
 							r.setFrequency(r.getFrequency() + result.getFrequency());
 							r.setScore(r.getScore() + result.getScore());
 							toRemove.add(result);

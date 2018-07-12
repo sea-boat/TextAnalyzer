@@ -4,13 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Collection;
 
 import org.apache.log4j.Logger;
 
-import com.seaboat.text.analyzer.hotword.Synonym;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 
 /**
  * 
@@ -23,20 +22,21 @@ import com.seaboat.text.analyzer.hotword.Synonym;
  */
 public class SynonymUtil {
 	protected static Logger logger = Logger.getLogger(SynonymUtil.class);
-	private static List<Synonym> synonyms = new LinkedList<Synonym>();
-	static {
-		String path = System.getProperty("user.dir");
-		InputStreamReader read;
+	private Multimap<String, String> multimap = ArrayListMultimap.create();
+	private static SynonymUtil instance = null;
+
+	private SynonymUtil(String path) {
+		if (path == null)
+			path = System.getProperty("user.dir") + "/resources/synonym.dic";
+		FileInputStream in;
 		try {
-			read = new InputStreamReader(new FileInputStream(path + "/resources/synonym.dic"), "UTF-8");
-			BufferedReader bufferedReader = new BufferedReader(read);
+			in = new FileInputStream(path);
+			BufferedReader bufferedReader = new BufferedReader(new UnicodeReader(in, "utf-8"));
 			String line;
 			while ((line = bufferedReader.readLine()) != null) {
 				String[] ss = line.split(";");
-				Synonym synonym = new Synonym();
-				for (String s : ss)
-					synonym.addSnonoym(s);
-				synonyms.add(synonym);
+				multimap.put(ss[0], ss[1]);
+				multimap.put(ss[1], ss[0]);
 			}
 			bufferedReader.close();
 		} catch (FileNotFoundException e) {
@@ -46,12 +46,18 @@ public class SynonymUtil {
 		}
 	}
 
-	public static String getSynonym(String term) {
-		String str;
-		for (Synonym s : synonyms)
-			if ((str = s.getSynonym(term)) != null)
-				return str;
-		return null;
+	public static SynonymUtil get(String path) {
+		if (instance != null)
+			return instance;
+		synchronized (SynonymUtil.class) {
+			if (instance == null)
+				instance = new SynonymUtil(path);
+			return instance;
+		}
+	}
+
+	public Collection<String> getSynonym(String term) {
+		return multimap.get(term);
 	}
 
 }

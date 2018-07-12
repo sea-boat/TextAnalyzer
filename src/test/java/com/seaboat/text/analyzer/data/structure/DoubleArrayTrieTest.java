@@ -28,9 +28,11 @@ public class DoubleArrayTrieTest {
 		list.add("一举三得");
 		list.add("一举两全");
 		System.out.println(tree.build(list));
+		list = null;
 		System.out.println(tree.commonPrefixSearch("一丝不挂"));
 		System.out.println(tree.commonPrefixSearch("一举万里"));
 		System.out.println(tree.commonPrefixSearch("一举两全"));
+		System.out.println(tree.exactMatchSearch("一举两全"));
 	}
 
 }
