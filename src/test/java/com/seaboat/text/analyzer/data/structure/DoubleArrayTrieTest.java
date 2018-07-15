@@ -25,12 +25,17 @@ public class DoubleArrayTrieTest {
 		list.add("一丝半粟");
 		list.add("一串骊珠");
 		list.add("一举万里");
+		list.add("一举万里啊");
 		list.add("一举三得");
 		list.add("一举两全");
+		list.add("一举两全");
+		list.add("你");
+		list.add("你们");
+		list.add("你们是谁");
 		System.out.println(tree.build(list));
 		list = null;
 		System.out.println(tree.commonPrefixSearch("一丝不挂"));
-		System.out.println(tree.commonPrefixSearch("一举万里"));
+		System.out.println(tree.commonPrefixSearch("你们是谁啊"));
 		System.out.println(tree.commonPrefixSearch("一举两全"));
 		System.out.println(tree.exactMatchSearch("一举两全"));
 	}

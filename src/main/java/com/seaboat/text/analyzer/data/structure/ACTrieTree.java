@@ -25,6 +25,46 @@ public class ACTrieTree {
 		this.root = new ACTrieNode(null);
 	}
 
+	public void put(String word, String pos, int freq) throws IllegalArgumentException {
+		if (word == null) {
+			throw new IllegalArgumentException();
+		}
+		//build goto function 
+		ACTrieNode current = this.root;
+		String[] ss = word.split("");
+		for (int i = 0; i < ss.length; i++) {
+			String s = ss[i];
+			ACTrieNode child = current.getChild(s);
+			if (child == null) {
+				child = new ACTrieNode(s);
+				current.setChild(child);
+				child.setStatus(status++);
+			}
+			current = child;
+			if (i == ss.length - 1) {
+				current.setFrequency(freq);
+				current.setPos(pos);
+			}
+			//build failure function
+			if (i == 0) {
+				current.setFailureNode(this.root);
+			} else {
+				ACTrieNode failureNode = null;
+				label1: for (int j = i; j > 0; j--) {
+					String temp = word.substring(i - j + 1, i + 1);
+					failureNode = get(temp);
+					if (failureNode != null)
+						break label1;
+				}
+				if (failureNode == null)
+					failureNode = this.root;
+				current.setFailureNode(failureNode);
+			}
+		}
+		//build output function
+		current.addResult(word);
+	}
+
 	public void put(String word) throws IllegalArgumentException {
 		if (word == null) {
 			throw new IllegalArgumentException();

@@ -22,6 +22,8 @@ public class ACTrieNode {
 	private int status;
 	private ACArray[] results = null;
 	private ACTrieNode failureNode;
+	private int frequency;
+	private byte[] pos = null;
 	private static String encoding = "utf-8";
 
 	public ACTrieNode(String value) {
@@ -143,6 +145,26 @@ public class ACTrieNode {
 
 	public void setFailureNode(ACTrieNode failureNode) {
 		this.failureNode = failureNode;
+	}
+
+	public int getFrequency() {
+		return frequency;
+	}
+
+	public void setFrequency(int frequency) {
+		this.frequency = frequency;
+	}
+
+	public byte[] getPos() {
+		return pos;
+	}
+
+	public void setPos(String pos) {
+		try {
+			this.pos = pos.getBytes(encoding);
+		} catch (UnsupportedEncodingException e) {
+			logger.warn("toString error. ", e);
+		}
 	}
 
 	public String toString() {

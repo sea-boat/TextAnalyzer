@@ -8,7 +8,9 @@
 * ~~cilin similarity.~~
 * ~~hownet similarity.~~
 * ~~pinyin similarity.~~
-* ac+trie tree segment.
+* ~~ac+trie tree segment.~~
+* ~~double array trie tree segment.~~
 * sentiment tendency.
 * ~~literal value similarity.~~
 * ~~training word2vec in java.~~
+* optimizing double arrays trie tree by storing arrays avoid building everytime.
