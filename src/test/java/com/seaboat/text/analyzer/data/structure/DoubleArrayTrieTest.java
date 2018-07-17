@@ -32,7 +32,11 @@ public class DoubleArrayTrieTest {
 		list.add("你");
 		list.add("你们");
 		list.add("你们是谁");
-		System.out.println(tree.build(list));
+		try {
+			System.out.println(tree.build(list));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		list = null;
 		System.out.println(tree.commonPrefixSearch("一丝不挂"));
 		System.out.println(tree.commonPrefixSearch("你们是谁啊"));

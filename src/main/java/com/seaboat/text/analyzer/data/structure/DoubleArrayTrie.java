@@ -214,8 +214,11 @@ public class DoubleArrayTrie {
 		return result;
 	}
 
-	public int build(List<String> key) {
-		return build(key, null, null, key.size());
+	public int build(List<String> key) throws Exception {
+		int flag = build(key, null, null, key.size());
+		if (flag != 0)
+			throw new Exception("error occurs when building double array trie.");
+		return flag;
 	}
 
 	public int build(List<String> _key, int _length[], int _value[], int _keySize) {

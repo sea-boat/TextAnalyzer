@@ -14,3 +14,4 @@
 * ~~literal value similarity.~~
 * ~~training word2vec in java.~~
 * optimizing double arrays trie tree by storing arrays avoid building everytime.
+* Aho-Corasick + double array trie to optimize matching. 
