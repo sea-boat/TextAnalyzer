@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.seaboat.text.analyzer.dict.CoreDict;
+import com.seaboat.text.analyzer.dict.CoreWordDict;
 
 /**
  * 
@@ -24,7 +24,7 @@ public class DictSegment implements Segment {
 
 	private static Logger logger = Logger.getLogger(DictSegment.class);
 	private static DictSegment instance = null;
-	private static CoreDict dict = CoreDict.get();
+	private static CoreWordDict dict = CoreWordDict.get();
 	private static MODE mode = MODE.INDEX;
 
 	public static DictSegment get() {

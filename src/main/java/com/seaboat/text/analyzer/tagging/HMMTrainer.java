@@ -3,8 +3,11 @@ package com.seaboat.text.analyzer.tagging;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.List;
 
+import com.seaboat.text.analyzer.exception.SizeException;
 import com.seaboat.text.analyzer.ml.hmm.HMMModel;
+import com.seaboat.text.analyzer.util.CorpusUtil;
 
 /**
  * 
@@ -20,7 +23,12 @@ public class HMMTrainer {
 
 	public static void main(String[] args) {
 		HMMModel model = new HMMModel();
-		model.train();
+		List<String[]>[] lists = CorpusUtil.readPeopleDailyCorpus("./data/corpus_data/train.txt");
+		try {
+			model.train(lists[0], lists[1]);
+		} catch (SizeException e) {
+			e.printStackTrace();
+		}
 		try {
 			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(path));
 			out.writeObject(model);

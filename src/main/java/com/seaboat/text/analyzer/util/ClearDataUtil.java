@@ -10,6 +10,15 @@ import java.io.OutputStreamWriter;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * 
+ * @author seaboat
+ * @date 2018-07-18
+ * @version 1.0
+ * <pre><b>email: </b>849586227@qq.com</pre>
+ * <pre><b>blog: </b>http://blog.csdn.net/wangyangzhizhou</pre>
+ * <p>character util.</p>
+ */
 public class ClearDataUtil {
 
 	public static void main(String[] args) {

@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import com.google.common.collect.Multimap;
 import com.seaboat.text.analyzer.data.structure.DAGModel.Range;
-import com.seaboat.text.analyzer.dict.CoreDict;
+import com.seaboat.text.analyzer.dict.CoreWordDict;
 
 /**
  * 
@@ -28,7 +28,7 @@ public class MDAGTest {
 		list.add("hers");
 		list.add("his");
 		list.add("she");
-		CoreDict dict = new CoreDict(list);
+		CoreWordDict dict = new CoreWordDict(list);
 		DAGModel dag = new DAGModel();
 		Multimap<Integer, Range> map = dag.calc("uhershe", dict);
 		for (Range r : map.values())

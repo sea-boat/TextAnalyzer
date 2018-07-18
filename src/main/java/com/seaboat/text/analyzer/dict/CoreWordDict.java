@@ -24,21 +24,21 @@ import com.seaboat.text.analyzer.segment.DictSegment;
  * @version 1.0
  * <pre><b>email: </b>849586227@qq.com</pre>
  * <pre><b>blog: </b>http://blog.csdn.net/wangyangzhizhou</pre>
- * <p>core dictionary.</p>
+ * <p>core words dictionary.</p>
  */
-public class CoreDict implements Dict {
+public class CoreWordDict implements Dict {
 
-	private static Logger logger = Logger.getLogger(CoreDict.class);
+	private static Logger logger = Logger.getLogger(CoreWordDict.class);
 
 	private static DoubleArrayTrie tree = null;
-	private static String DIC_FILE = "/core.dic";
+	private static String DIC_FILE = "/core-words.dic";
 	public static String[] dictionary = null;
 	private static int[] frequencies = null;
 	private static byte[] pos = null;
 	private static String[] POS_TYPE = null;
-	private static CoreDict instance;
+	private static CoreWordDict instance;
 
-	private CoreDict() {
+	private CoreWordDict() {
 		tree = new DoubleArrayTrie();
 		long st = 0;
 		if (logger.isDebugEnabled())
@@ -52,7 +52,7 @@ public class CoreDict implements Dict {
 		logger.debug("loading dictionary elapsed time : " + (System.nanoTime() - st) / (1000 * 1000) + "ms");
 	}
 
-	public CoreDict(List<String> words) {
+	public CoreWordDict(List<String> words) {
 		tree = new DoubleArrayTrie();
 		long st = 0;
 		if (logger.isDebugEnabled())
@@ -73,12 +73,12 @@ public class CoreDict implements Dict {
 			dictionary[i] = words.get(i);
 	}
 
-	public static CoreDict get() {
+	public static CoreWordDict get() {
 		if (instance != null)
 			return instance;
-		synchronized (CoreDict.class) {
+		synchronized (CoreWordDict.class) {
 			if (instance == null)
-				instance = new CoreDict();
+				instance = new CoreWordDict();
 			return instance;
 		}
 	}
