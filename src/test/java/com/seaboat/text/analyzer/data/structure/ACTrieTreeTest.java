@@ -31,6 +31,7 @@ public class ACTrieTreeTest {
 		tree.put("hers");
 		System.out.println(tree.acSearch("uhershe"));
 		System.out.println(tree.acSearch("美利坚这个美国帝王金子啊"));
+		System.out.println(tree.acSearch("美x利坚这个美国帝王金子啊"));
 		System.out.println(tree.get("美利坚") == null);
 		System.out.println(tree.get("美利") == null);
 		tree.remove("美利坚");

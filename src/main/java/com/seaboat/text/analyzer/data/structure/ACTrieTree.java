@@ -121,16 +121,18 @@ public class ACTrieTree {
 		try {
 			L1: for (String s : str.split("")) {
 				ACTrieNode child = current.getChild(s);
-				//jump the prefix which is not exist in teri tree.
+				//jump the prefix which is not exist in trie tree.
 				if (child == null && current == root) {
 					continue;
 				}
 				if (child == null) {
 					ACTrieNode failure = current.getFailureNode();
-					//jump the word which is not exist in teri tree.
+					//jump the word which is not exist in trie tree.
 					while (failure.getChild(s) == null) {
-						if (failure == this.root)
+						if (failure == this.root) {
+							current = failure;
 							continue L1;
+						}
 						failure = failure.getFailureNode();
 					}
 					current = failure;
@@ -181,6 +183,11 @@ public class ACTrieTree {
 
 	public void clear() {
 		this.root = new ACTrieNode(null);
+	}
+
+	public void build(List<String> words) {
+		for (String s : words)
+			this.put(s);
 	}
 
 }
