@@ -387,3 +387,9 @@ WordSentimentTendency tendency = new WordSentimentTendency();
 System.out.println(tendency.getTendency("高兴"));
 System.out.println(tendency.getTendency("伤心"));
 ```
+
+## Chinese Name Recognition
+
+```
+NameDict.get().searchName("汪建是华大基因董事长")
+```
