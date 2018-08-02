@@ -14,7 +14,7 @@ import org.junit.Test;
 public class NameDictTest {
 
 	@Test
-	public void createAndDeleteTree() {
+	public void test() {
 		System.out.println(NameDict.get().searchName("汪建是华大基因董事长"));
 	}
 

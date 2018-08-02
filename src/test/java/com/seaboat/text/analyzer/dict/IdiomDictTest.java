@@ -1,7 +1,5 @@
 package com.seaboat.text.analyzer.dict;
 
-import java.util.List;
-
 import org.junit.Test;
 
 /**
@@ -13,13 +11,11 @@ import org.junit.Test;
  * <pre><b>blog: </b>http://blog.csdn.net/wangyangzhizhou</pre>
  * <p>core dict tester.</p>
  */
-public class CoreDictTest {
+public class IdiomDictTest {
 
 	@Test
 	public void test() {
-		List<Integer> list = CoreWordDict.get().prefixSearch("从前有个人");
-		for(int i:list)
-			System.out.println(CoreWordDict.get().getStringByIndex(i));
+			System.out.println(IdiomDict.get().searchIdiom("从前有个人阿谀奉承"));
 	}
 
 }

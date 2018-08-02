@@ -393,3 +393,9 @@ System.out.println(tendency.getTendency("伤心"));
 ```
 NameDict.get().searchName("汪建是华大基因董事长")
 ```
+
+## Idiom Recognition
+
+```
+IdiomDict.get().searchIdiom("从前有个人阿谀奉承")
+```

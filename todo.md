@@ -17,3 +17,4 @@
 * Aho-Corasick + double array trie to optimize matching. 
 * optimizing core dictionary by persistence avoid building ac-tree everytime.
 * optimizing name dictionary by persistence avoid building double arrays everytime.
+* optimizing idiom dictionary by persistence avoid building double arrays everytime.
