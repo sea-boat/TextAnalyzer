@@ -392,6 +392,7 @@ System.out.println(tendency.getTendency("伤心"));
 
 ```
 NameDict.get().searchName("汪建是华大基因董事长")
+NameDict.get().searchEnglishName("Tom and Jim are my friends")
 ```
 
 ## Idiom Recognition

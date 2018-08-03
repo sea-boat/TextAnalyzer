@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.seaboat.text.analyzer.data.structure.ACTrieNode;
 import com.seaboat.text.analyzer.data.structure.ACTrieTree;
 import com.seaboat.text.analyzer.segment.DictSegment;
 
@@ -26,21 +27,30 @@ public class NameDict implements Dict {
 	private static Logger logger = Logger.getLogger(NameDict.class);
 
 	private static ACTrieTree tree = null;
+	private static ACTrieTree etree = null;
 	private static String DIC_FILE = "/chinese-names.dic";
+	private static String E_DIC_FILE = "/english-names.dic";
 	private static NameDict instance;
 
 	private NameDict() {
 		tree = new ACTrieTree();
+		etree = new ACTrieTree();
 		long st = 0;
 		if (logger.isDebugEnabled())
 			st = System.nanoTime();
 		List<String> words = loadDict(DIC_FILE);
+		List<String> words2 = loadEnglishNamesDict(E_DIC_FILE);
 		try {
 			tree.build(words);
+			etree.build(words2);
 		} catch (Exception e) {
 			logger.error(e);
 		}
 		logger.debug("loading name dictionary elapsed time : " + (System.nanoTime() - st) / (1000 * 1000) + "ms");
+	}
+
+	private List<String> loadEnglishNamesDict(String path) {
+		return loadDict(path);
 	}
 
 	public NameDict(List<String> words) {
@@ -89,15 +99,26 @@ public class NameDict implements Dict {
 		return tree.acSearch(s);
 	}
 
+	public List<String> searchEnglishName(String s) throws Exception {
+		if (etree == null)
+			throw new Exception("english name dictionary is null");
+		List<String> list = new ArrayList<String>();
+		String[] ss = s.split(" ");
+		for (String st : ss) {
+			ACTrieNode node = etree.get(st);
+			if (node != null && node.getResults() != null)
+				list.add(st);
+		}
+		return list;
+	}
+
 	@Override
 	public List<Integer> prefixSearch(String text) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String getStringByIndex(Integer i) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -14,8 +14,9 @@ import org.junit.Test;
 public class NameDictTest {
 
 	@Test
-	public void test() {
+	public void test() throws Exception {
 		System.out.println(NameDict.get().searchName("汪建是华大基因董事长"));
+		System.out.println(NameDict.get().searchEnglishName("Tom and Jim are my friends"));
 	}
 
 }
