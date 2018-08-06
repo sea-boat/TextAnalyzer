@@ -5,17 +5,17 @@ import org.junit.Test;
 /**
  * 
  * @author seaboat
- * @date 2018-07-31
+ * @date 2018-08-06
  * @version 1.0
  * <pre><b>email: </b>849586227@qq.com</pre>
  * <pre><b>blog: </b>http://blog.csdn.net/wangyangzhizhou</pre>
- * <p>idiom dict tester.</p>
+ * <p>place name dict tester.</p>
  */
-public class IdiomDictTest {
+public class PlacenameDictTest {
 
 	@Test
 	public void test() {
-			System.out.println(IdiomDict.get().searchIdiom("从前有个人阿谀奉承"));
+		System.out.println(PlacenameDict.get().searchPlacename("我住在天河北路，不在广州大道中，在天河区"));
 	}
 
 }

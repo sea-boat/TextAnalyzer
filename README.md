@@ -388,7 +388,7 @@ System.out.println(tendency.getTendency("高兴"));
 System.out.println(tendency.getTendency("伤心"));
 ```
 
-## Chinese Name Recognition
+## Chinese&English Name Recognition
 
 ```
 NameDict.get().searchName("汪建是华大基因董事长")
@@ -399,4 +399,10 @@ NameDict.get().searchEnglishName("Tom and Jim are my friends")
 
 ```
 IdiomDict.get().searchIdiom("从前有个人阿谀奉承")
+```
+
+## Placename Recognition
+
+```
+PlacenameDict.get().searchPlacename("我住在天河北路，不在广州大道中，在天河区")
 ```
