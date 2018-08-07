@@ -406,3 +406,9 @@ IdiomDict.get().searchIdiom("从前有个人阿谀奉承")
 ```
 PlacenameDict.get().searchPlacename("我住在天河北路，不在广州大道中，在天河区")
 ```
+
+## Organization Recognition
+
+```
+OrganizationDict.get().searchOrganization("去阿里巴巴找朋友")
+```
