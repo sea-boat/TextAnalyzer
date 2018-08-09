@@ -412,3 +412,9 @@ PlacenameDict.get().searchPlacename("我住在天河北路，不在广州大道�
 ```
 OrganizationDict.get().searchOrganization("去阿里巴巴找朋友")
 ```
+
+## Traditional Chinese Recognition
+
+```
+List<Integer> list = TraditionalDict.get().prefixSearch("1隻大狗");
+```
