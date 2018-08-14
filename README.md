@@ -1,8 +1,8 @@
 # TextAnalyzer
 
-A text analyzer which is based on machine learning,statistics and dictionaries that can analyze text.
+A text analyzer which is based on machine learning, statistics and dictionaries that can analyze text.
 
-So far, it supports hot word extracting, text classification, part of speech tagging, named entity recognition, chinese word segment, extracting address, synonym, text clustering, word2vec model, edit distance, chinese word segment, sentence similarity, extracting name, extracting ID, word sentiment tendency. 
+So far, it supports hot word extracting, text classification, part of speech tagging, named entity recognition, chinese word segment, extracting address, synonym, text clustering, word2vec model, edit distance, chinese word segment, sentence similarity,word sentiment tendency, name recognition, idiom recognition, placename recognition, organization recognition, traditional chinese recognition, pinyin transform.
 
 # Features
 
@@ -391,30 +391,39 @@ System.out.println(tendency.getTendency("伤心"));
 ## Chinese&English Name Recognition
 
 ```
-NameDict.get().searchName("汪建是华大基因董事长")
-NameDict.get().searchEnglishName("Tom and Jim are my friends")
+NameDict.get().searchName("汪建是华大基因董事长");
+NameDict.get().searchEnglishName("Tom and Jim are my friends");
 ```
 
 ## Idiom Recognition
 
 ```
-IdiomDict.get().searchIdiom("从前有个人阿谀奉承")
+IdiomDict.get().searchIdiom("从前有个人阿谀奉承");
 ```
 
 ## Placename Recognition
 
 ```
-PlacenameDict.get().searchPlacename("我住在天河北路，不在广州大道中，在天河区")
+PlacenameDict.get().searchPlacename("我住在天河北路，不在广州大道中，在天河区");
 ```
 
 ## Organization Recognition
 
 ```
-OrganizationDict.get().searchOrganization("去阿里巴巴找朋友")
+OrganizationDict.get().searchOrganization("去阿里巴巴找朋友");
 ```
 
 ## Traditional Chinese Recognition
 
 ```
 List<Integer> list = TraditionalDict.get().prefixSearch("1隻大狗");
+for(int i:list)
+	System.out.println(TraditionalDict.get().getStringByIndex(i));
+```
+
+
+## Pinyin Transform 
+
+```
+PinyinDict.get().getStringByIndex(PinyinDict.get().exactlySearch("一心一意"));
 ```
