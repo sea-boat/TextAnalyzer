@@ -37,6 +37,10 @@ public class DictSegment implements Segment {
 		return instance;
 	}
 
+	public void setMode(MODE m) {
+		DictSegment.mode = m;
+	}
+
 	private DictSegment() {
 	}
 
@@ -64,6 +68,27 @@ public class DictSegment implements Segment {
 							len = dict.getStringByIndex(i).length();
 						words.add(dict.getStringByIndex(i) + "/" + dict.getPostType(i));
 					}
+					index = index + len;
+				}
+				if (index >= s.length())
+					break;
+			}
+		} else if (mode == MODE.NORMAL) {
+			String s = text;
+			int index = 0;
+			while (true) {
+				List<Integer> temp_list = dict.prefixSearch(s.substring(index, s.length()));
+				if (temp_list.size() == 0) {
+					words.add(s.substring(index, index + 1) + "/un");
+					index++;
+					if (index == s.length())
+						break;
+					continue;
+				} else {
+					//last is the longest
+					String longest = dict.getStringByIndex(temp_list.get(temp_list.size() - 1));
+					int len = longest.length();
+					words.add(longest + "/" + dict.getPostType(temp_list.get(temp_list.size() - 1)));
 					index = index + len;
 				}
 				if (index >= s.length())
