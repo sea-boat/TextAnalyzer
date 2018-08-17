@@ -1,6 +1,7 @@
 package com.seaboat.text.analyzer.segment;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -16,12 +17,15 @@ import com.seaboat.text.analyzer.dict.CoreWordDict;
  * <pre><b>blog: </b>http://blog.csdn.net/wangyangzhizhou</pre>
  * <p>word segment based dictionary which is using rule-based.</p>
  * <p>"forward maximum matching"</p>
+ * <p>"reverse maximum matching"</p>
  */
 public class RuleBasedSegment implements Segment {
 
 	enum TYPE {
 		//forward maximum matching
-		FMM
+		FMM,
+		//reverse maximum matching
+		RMM
 	};
 
 	private static Logger logger = Logger.getLogger(RuleBasedSegment.class);
@@ -39,6 +43,10 @@ public class RuleBasedSegment implements Segment {
 		return instance;
 	}
 
+	public static void setType(TYPE type) {
+		RuleBasedSegment.type = type;
+	}
+
 	private RuleBasedSegment() {
 	}
 
@@ -47,8 +55,43 @@ public class RuleBasedSegment implements Segment {
 		switch (type) {
 		case FMM:
 			return fmm(text);
+		case RMM:
+			return rmm(text);
 		}
 		return null;
+	}
+
+	private List<String> rmm(String text) {
+		long st = 0;
+		if (logger.isDebugEnabled())
+			st = System.nanoTime();
+		List<String> words = new ArrayList<String>();
+		int LEN = 10;
+		while (text.length() > 0) {
+			String temp;
+			if (text.length() < LEN) {
+				temp = text;
+			} else {
+				temp = text.substring(text.length() - LEN);
+			}
+
+			while (temp.length() > 0) {
+				int id = dict.exactlySearch(temp);
+				if (id != -1 || temp.length() == 1) {
+					if (temp.length() == 1 && id == -1)
+						words.add(temp + "/un");
+					else
+						words.add(temp + "/" + dict.getPostType(id));
+					text = text.substring(0, text.length() - temp.length());
+					break;
+				} else {
+					temp = temp.substring(1);
+				}
+			}
+		}
+		Collections.reverse(words);
+		logger.debug("segment elapsed time : " + (System.nanoTime() - st) / (1000 * 1000) + "ms");
+		return words;
 	}
 
 	private List<String> fmm(String text) {

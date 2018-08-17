@@ -135,6 +135,10 @@ public class CoreWordDict implements Dict {
 	public List<Integer> prefixSearch(String text) {
 		return tree.commonPrefixSearch(text);
 	}
+	
+	public int exactlySearch(String text) {
+		return tree.exactMatchSearch(text);
+	}
 
 	public String getStringByIndex(Integer i) {
 		return dictionary[i];
